@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio | Luca SIEYANDJI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- ═══════════════ CSS — BLOC UNIQUE ═══════════════ -->
+  <style>
+    :root{--p:#2C5394;--s:#fd6c00;--os:#1a1c1e;--osv:#43474e;--surf:#fdfbff;--fh:'Plus Jakarta Sans',sans-serif;--fb:'Inter',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--fb);background:var(--surf);color:var(--os);overflow-x:hidden;cursor:none;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
+    @media(pointer:coarse){body{cursor:auto;}.c-dot,.c-ring{display:none!important;}}
+
+    /* Curseur */
+    .c-dot{width:8px;height:8px;background:var(--p);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+    .c-ring{width:38px;height:38px;border:2px solid rgba(44,83,148,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+    .c-ring.h{width:56px;height:56px;border-color:var(--s);}
+
+    /* Scroll progress */
+    #sp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--p),var(--s));z-index:9997;}
+
+    /* Loader */
+    #loader{position:fixed;inset:0;background:#fdfbff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
+    #loader.out{opacity:0;pointer-events:none;}
+    .l-logo{font-family:var(--fh);font-weight:900;font-size:2rem;color:var(--p);animation:pulse .8s ease infinite alternate;}
+    @keyframes pulse{from{opacity:.3;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
+
+    /* Nav */
+    nav{position:fixed;top:0;width:100%;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid #e2e8f0;box-shadow:0 1px 8px rgba(0,0,0,.06);}
+    .nav-in{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;max-width:1280px;margin:0 auto;}
+    .nav-logo{font-family:var(--fh);font-weight:900;font-size:1.2rem;color:var(--p);letter-spacing:-.03em;}
+    .nav-links{display:flex;gap:2rem;}
+    .nl{font-family:var(--fh);font-weight:700;font-size:.9rem;color:var(--osv);position:relative;padding-bottom:2px;transition:color .2s;}
+    .nl::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--p);transition:width .3s;}
+    .nl:hover::after,.nl.act::after{width:100%;}
+    .nl:hover,.nl.act{color:var(--p);}
+    .nav-lang{font-family:var(--fh);font-weight:700;font-size:.8rem;letter-spacing:.1em;color:var(--p);cursor:pointer;}
+    .hbg{display:none;background:none;border:none;cursor:pointer;color:var(--os);}
+    .mob{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#fff;padding:1.5rem 2rem;gap:1.5rem;border-bottom:1px solid #e2e8f0;z-index:49;box-shadow:0 4px 20px rgba(0,0,0,.08);opacity:0;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
+    .mob.open{display:flex;opacity:1;transform:translateY(0);}
+    .ml{font-family:var(--fh);font-weight:700;font-size:1.1rem;color:var(--osv);}
+    .ml.act{color:var(--p);}
+
+    /* Reveal */
+    .reveal,.rv-l,.rv-r{opacity:0;transition:opacity .7s ease,transform .7s ease;}
+    .reveal{transform:translateY(40px);}
+    .rv-l{transform:translateX(-40px);}
+    .rv-r{transform:translateX(40px);}
+    .reveal.on,.rv-l.on,.rv-r.on{opacity:1;transform:none;}
+    .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
+
+    /* ── HERO ── */
+    .hero{padding:9rem 2.5rem 5rem;background:linear-gradient(135deg,#fdfbff,#f3f3f7);position:relative;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+    .o1{width:400px;height:400px;background:rgba(44,83,148,.06);top:-60px;right:-80px;animation:drift 9s ease-in-out infinite alternate;}
+    @keyframes drift{from{transform:translate(0,0);}to{transform:translate(25px,20px);}}
+    .hero-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;position:relative;z-index:1;}
+    .sub{font-size:.8rem;text-transform:uppercase;letter-spacing:.25em;color:var(--s);display:block;margin-bottom:1rem;font-family:var(--fb);}
+    .hero-title{font-family:var(--fh);font-weight:800;font-size:clamp(3rem,6vw,5.5rem);line-height:.95;letter-spacing:-.04em;text-transform:uppercase;}
+    .hero-title span{color:var(--p);}
+    .hero-desc{color:var(--osv);font-size:1.05rem;line-height:1.7;border-left:3px solid var(--p);padding-left:1.2rem;}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem;}
+    .pill{padding:.35rem .9rem;border-radius:999px;font-size:.72rem;font-weight:700;font-family:var(--fh);}
+    .pill-b{background:rgba(44,83,148,.1);color:var(--p);}
+    .pill-o{background:rgba(253,108,0,.1);color:var(--s);}
+    .pill-g{background:#f1f5f9;color:var(--osv);}
+
+    /* ── DIGITAL LD STORE (projet principal) ── */
+    .ld-section{padding:5rem 2.5rem;background:#fff;}
+    .ld-in{max-width:1280px;margin:0 auto;}
+    .section-header{margin-bottom:3rem;}
+    .section-header .sub2{font-size:.75rem;text-transform:uppercase;letter-spacing:.2em;color:var(--p);display:block;margin-bottom:.6rem;font-family:var(--fb);}
+    .section-header h2{font-family:var(--fh);font-weight:800;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.02em;}
+    .ld-box{background:linear-gradient(135deg,#0d1b3e,#1a3a6b);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-height:420px;}
+    .ld-left{padding:3.5rem;display:flex;flex-direction:column;justify-content:space-between;}
+    .ld-logo-area{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+    .ld-logo-icon{width:52px;height:52px;background:var(--s);border-radius:12px;display:flex;align-items:center;justify-content:center;}
+    .ld-logo-icon span{font-size:1.6rem;color:#fff;}
+    .ld-logo-text h3{font-family:var(--fh);font-weight:900;font-size:1.3rem;color:#fff;}
+    .ld-logo-text p{font-size:.75rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;}
+    .ld-desc{color:rgba(255,255,255,.8);font-size:1rem;line-height:1.8;margin-bottom:2rem;}
+    .ld-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
+    .ld-tag{padding:.3rem .8rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:.7rem;color:rgba(255,255,255,.8);font-weight:600;}
+    .ld-stats{display:flex;gap:2rem;}
+    .ld-stat .num{font-family:var(--fh);font-weight:900;font-size:1.8rem;color:var(--s);}
+    .ld-stat .lbl{font-size:.7rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
+    .ld-right{position:relative;overflow:hidden;}
+    .ld-right img{width:100%;height:100%;object-fit:cover;object-position:center;}
+    .ld-right-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,27,62,.4),transparent);}
+
+    /* ── GRILLE PORTFOLIO ── */
+    .portfolio{padding:5rem 2.5rem;background:#f8fafc;}
+    .portfolio-in{max-width:1280px;margin:0 auto;}
+    .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+
+    /* Carte projet */
+    .pcard{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.07);transition:transform .35s ease,box-shadow .35s ease;position:relative;cursor:pointer;}
+    .pcard:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(0,0,0,.15);}
+    .pcard-img{position:relative;overflow:hidden;}
+    .pcard-img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s ease;}
+    .pcard:hover .pcard-img img{transform:scale(1.08);}
+    .pcard-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.7),transparent);opacity:0;transition:opacity .35s ease;display:flex;align-items:flex-end;padding:1.2rem;}
+    .pcard:hover .pcard-overlay{opacity:1;}
+    .pcard-overlay-text{color:#fff;font-family:var(--fh);font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:.4rem;}
+    .pcard-body{padding:1.4rem;}
+    .pcard-cat{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem;font-family:var(--fh);}
+    .pcard-cat.b{color:var(--p);}.pcard-cat.o{color:var(--s);}.pcard-cat.g{color:#7c3aed;}.pcard-cat.t{color:#0891b2;}
+    .pcard h3{font-family:var(--fh);font-weight:700;font-size:1.05rem;margin-bottom:.4rem;}
+    .pcard p{color:var(--osv);font-size:.82rem;line-height:1.6;}
+    .pcard-badge{position:absolute;top:1rem;left:1rem;padding:.3rem .8rem;border-radius:999px;font-size:.65rem;font-weight:700;font-family:var(--fh);text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);}
+    .pcard-badge.b{color:var(--p);}.pcard-badge.o{color:var(--s);}.pcard-badge.g{color:#7c3aed;}
+
+    /* Grande carte Digital LD Store dans la grille */
+    .pcard-wide{grid-column:span 2;}
+
+    /* ── TIMELINE ── */
+    .timeline-sec{padding:5rem 2.5rem;background:#fff;}
+    .tl-in{max-width:800px;margin:0 auto;}
+    .tl-wrap{position:relative;margin-top:3rem;}
+    .tl-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#e2e8f0;transform:translateX(-50%);}
+    .tl-item{display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center;margin-bottom:3rem;}
+    .tl-left{text-align:right;}
+    .tl-right{text-align:left;}
+    .tl-dot{width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--p);background:var(--p);flex-shrink:0;transition:transform .2s;}
+    .tl-dot.o{box-shadow:0 0 0 2px var(--s);background:var(--s);}
+    .tl-dot.active{animation:dotPulse 2s ease infinite;}
+    @keyframes dotPulse{0%,100%{box-shadow:0 0 0 2px var(--p);}50%{box-shadow:0 0 0 8px rgba(44,83,148,.1);}}
+    .tl-item:hover .tl-dot{transform:scale(1.3);}
+    .tl-year{font-family:var(--fh);font-weight:900;font-size:2rem;color:#e2e8f0;transition:color .3s;}
+    .tl-item:hover .tl-year{color:rgba(44,83,148,.15);}
+    .tl-title{font-family:var(--fh);font-weight:700;font-size:1.2rem;margin-bottom:.2rem;}
+    .tl-company{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+    .tl-company.b{color:var(--p);}.tl-company.o{color:var(--s);}
+    .tl-desc{color:var(--osv);font-size:.85rem;line-height:1.6;}
+
+    /* ── CTA ── */
+    .cta-sec{padding:5rem 2.5rem;}
+    .cta-box{max-width:1280px;margin:0 auto;background:var(--p);color:#fff;border-radius:16px;padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(44,83,148,.3);}
+    .cta-box::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px;}
+    .cta-box h2{font-family:var(--fh);font-weight:900;font-size:clamp(1.8rem,3.5vw,3rem);margin-bottom:1rem;position:relative;z-index:1;}
+    .cta-box p{opacity:.85;font-size:1rem;margin-bottom:2.5rem;font-style:italic;position:relative;z-index:1;}
+    .cta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;position:relative;z-index:1;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;border-radius:6px;font-family:var(--fh);font-weight:700;font-size:.85rem;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s;}
+    .btn .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:rip .6s linear;pointer-events:none;}
+    @keyframes rip{to{transform:scale(4);opacity:0;}}
+    .btn-w{background:#fff;color:var(--p);}
+    .btn-w:hover{transform:scale(1.05);box-shadow:0 12px 30px rgba(0,0,0,.2);}
+    .btn-os{background:var(--s);color:#fff;}
+    .btn-os:hover{transform:scale(1.05);box-shadow:0 12px 30px rgba(253,108,0,.4);}
+
+    /* Footer */
+    footer{background:#f8fafc;padding:3rem 2.5rem;border-top:1px solid #e2e8f0;}
+    .ft-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+    .ft-logo{font-family:var(--fh);font-weight:700;font-size:1.1rem;color:var(--p);}
+    .ft-copy{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;}
+    .ft-links{display:flex;gap:1.5rem;}
+    .ft-links a{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;transition:color .2s;}
+    .ft-links a:hover{color:var(--s);}
+
+    /* Responsive */
+    @media(max-width:1024px){.pf-grid{grid-template-columns:1fr 1fr;}.pcard-wide{grid-column:span 2;}.ld-box{grid-template-columns:1fr;}.ld-right{height:280px;}}
+    @media(max-width:768px){.nav-links,.nav-lang{display:none;}.hbg{display:block;}.hero-in{grid-template-columns:1fr;gap:2rem;}.pf-grid{grid-template-columns:1fr;}.pcard-wide{grid-column:span 1;}.tl-line{left:0;}.tl-item{grid-template-columns:1fr;gap:.5rem;}.tl-left{text-align:left;}.tl-year{font-size:1.4rem;}.nav-in,.hero,.ld-section,.portfolio,.timeline-sec,.cta-sec,footer{padding-left:1.5rem;padding-right:1.5rem;}.ft-in{flex-direction:column;text-align:center;}}
+  </style>
+</head>
+<body>
+  <div id="loader"><span class="l-logo">Portfolio</span></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div id="sp"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-in">
+      <a href="accueil.html" class="nav-logo">Lucare · LD</a>
+      <div class="nav-links">
+        <a href="accueil.html" class="nl">Accueil</a>
+        <a href="experience.html" class="nl act">Portfolio</a>
+        <a href="services.html" class="nl">Services</a>
+        <a href="contact.html" class="nl">Contact</a>
+      </div>
+      <span class="nav-lang">EN | FR</span>
+      <button class="hbg" id="hbg"><span class="material-symbols-outlined" id="hbgI" style="font-size:1.8rem;">menu</span></button>
+    </div>
+  </nav>
+  <div class="mob" id="mob">
+    <a href="accueil.html" class="ml">Accueil</a>
+    <a href="experience.html" class="ml act">Portfolio</a>
+    <a href="services.html" class="ml">Services</a>
+    <a href="contact.html" class="ml">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb o1"></div>
+    <div class="hero-in">
+      <div class="rv-l d1">
+        <span class="sub">Design · Développement · Business</span>
+        <h1 class="hero-title">MON<br/><span>PORTFOLIO</span></h1>
+      </div>
+      <div class="rv-r d2">
+        <p class="hero-desc">Projets réels réalisés pour des clients camerounais et internationaux — flyers, identités visuelles, mockups produits, et ma boutique Digital LD Store.</p>
+        <div class="hero-pills">
+          <span class="pill pill-b">Design Graphique</span>
+          <span class="pill pill-o">E-commerce</span>
+          <span class="pill pill-b">Flutter Mobile</span>
+          <span class="pill pill-g">Branding</span>
+          <span class="pill pill-g">Marketing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL LD STORE — PROJET PHARE -->
+  <section class="ld-section" id="portfolio">
+    <div class="ld-in">
+      <div class="section-header reveal">
+        <span class="sub2">Projet phare · 2023 — Présent</span>
+        <h2>Digital LD Store — Ma boutique virtuelle</h2>
+      </div>
+      <div class="ld-box reveal d1">
+        <div class="ld-left">
+          <div>
+            <div class="ld-logo-area">
+              <div class="ld-logo-icon"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">computer</span></div>
+              <div class="ld-logo-text"><h3>Digital LD Store</h3><p>Douala · Akwa Ancien Number One</p></div>
+            </div>
+            <p class="ld-desc">Boutique virtuelle spécialisée dans la vente d'ordinateurs neufs et USA Grade A, accessoires informatiques (souris, clavier, etc.) et services de maintenance. Gérée principalement sur WhatsApp avec un réseau de fournisseurs physiques à Douala.</p>
+            <div class="ld-tags">
+              <span class="ld-tag">Ordinateurs Neufs</span>
+              <span class="ld-tag">USA Grade A</span>
+              <span class="ld-tag">Accessoires</span>
+              <span class="ld-tag">Maintenance</span>
+              <span class="ld-tag">WhatsApp Commerce</span>
+            </div>
+          </div>
+          <div class="ld-stats">
+            <div class="ld-stat"><div class="num">2023</div><div class="lbl">Fondée</div></div>
+            <div class="ld-stat"><div class="num">50k+</div><div class="lbl">Fcfa à partir de</div></div>
+            <div class="ld-stat"><div class="num">✓</div><div class="lbl">Active</div></div>
+          </div>
+        </div>
+        <div class="ld-right">
+          <img src="/Images/MARS flyer copie.jpg" alt="Digital LD Store — Flyer ordinateurs"/>
+          <div class="ld-right-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRILLE PORTFOLIO -->
+  <section class="portfolio">
+    <div class="portfolio-in">
+      <div class="section-header reveal">
+        <span class="sub2">Mes réalisations</span>
+        <h2>Designs & Projets clients</h2>
+      </div>
+      <div class="pf-grid">
+
+        <!-- 08 Mars — Digital LD Store -->
+        <div class="pcard reveal d1">
+          <div class="pcard-img">
+            <img src="/Images/08 Mars copie 2.jpg" alt="Flyer 8 Mars Digital LD Store"/>
+            <span class="pcard-badge b">Flyer événementiel</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat o">Digital LD Store · Marketing</p>
+            <h3>Journée Internationale des Droits des Femmes</h3>
+            <p>Flyer événementiel 08 Mars pour la boutique Digital LD Store. Design mêlant photo composite et typographie impactante.</p>
+          </div>
+        </div>
+
+        <!-- Heritage Bayan Gam — Mockup 1 -->
+        <div class="pcard reveal d2">
+          <div class="pcard-img">
+            <img src="/Images/1775165691348.png" alt="Heritage Bayan Gam mockup t-shirt"/>
+            <span class="pcard-badge g">Branding & Mockup</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat g">Heritage Bayan Gam · Identité visuelle</p>
+            <h3>Mockup T-shirt — Heritage Bayan Gam</h3>
+            <p>Création du logo et application sur mockup t-shirt pour la marque Heritage Bayan Gam. Logo culturel camerounais.</p>
+          </div>
+        </div>
+
+        <!-- Heritage Bayan Gam — Mockup 2 (large) -->
+        <div class="pcard pcard-wide reveal d1">
+          <div class="pcard-img">
+            <img src="/Images/1775167827463.png" alt="Heritage Bayan Gam groupe mockup"/>
+            <span class="pcard-badge g">Branding · Collection</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat g">Heritage Bayan Gam · Lifestyle</p>
+            <h3>Collection complète — T-shirts & Hoodies</h3>
+            <p>Déclinaison de l'identité Heritage Bayan Gam sur toute une gamme de vêtements. Mockup groupe en contexte marché africain.</p>
+          </div>
+        </div>
+
+        <!-- Sunshiny Babeshop -->
+        <div class="pcard reveal d2">
+          <div class="pcard-img">
+            <img src="/Images/FLORENCIA.jpg" alt="Sunshiny Babeshop flyer"/>
+            <span class="pcard-badge" style="color:#9333ea;">E-commerce · Shein</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat g">Sunshiny Babeshop · Flyer digital</p>
+            <h3>Flyer promotionnel — Sunshiny Babeshop</h3>
+            <p>Flyer e-commerce pour une boutique spécialisée en validation Shein, bijoux personnalisés et accessoires.</p>
+          </div>
+        </div>
+
+        <!-- Kombicar -->
+        <div class="pcard reveal d3">
+          <div class="pcard-img">
+            <img src="/Images/KOMBI CAR3 copie2.jpg" alt="Kombicar flyer"/>
+            <span class="pcard-badge" style="color:#ea580c;">Transport · App</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat o">Kombicar · Communication</p>
+            <h3>Flyer recrutement chauffeurs — Kombicar</h3>
+            <p>Design publicitaire pour l'application Kombicar. Flyer recrutement chauffeurs avec mise en valeur des véhicules et conditions.</p>
+          </div>
+        </div>
+
+        <!-- Mañaka Ananas -->
+        <div class="pcard reveal d2">
+          <div class="pcard-img">
+            <img src="/Images/ANANAS.jpg" alt="Mañaka Pineapple and Ginger"/>
+            <span class="pcard-badge b">Packaging · Label</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat b">Mañaka · Packaging produit</p>
+            <h3>Étiquette bouteille — Mañaka Ananas & Gingembre</h3>
+            <p>Design d'étiquette pour le jus naturel Mañaka (Shalom Fruits). Variante Pineapple & Ginger, 500ml.</p>
+          </div>
+        </div>
+
+    
+
+        <!-- Mañaka Citron 2 -->
+        <div class="pcard reveal d4">
+          <div class="pcard-img">
+            <img src="/Images/MOCKUP.jpg" alt="Mañaka Lem's Juice vert"/>
+            <span class="pcard-badge b">Packaging · Label</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat b">Mañaka · Packaging produit</p>
+            <h3>Étiquette — Mañaka Lem's Juice (Version verte)</h3>
+            <p>Variante fond vert pour l'étiquette Lem's Juice. Gamme Shalom Fruits, Force · Vitalité · Endurance.</p>
+          </div>
+        </div>
+
+         <!-- Mañaka Citron 1 -->
+         <div class="pcard reveal d4">
+          <div class="pcard-img">
+            <img src="/Images/3 logo.jpg" alt="logo GW Construction"/>
+            <span class="pcard-badge b">Creation de Logo</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat b">GW Construction · Logo entreprise</p>
+            <h3>Logo — GW Construction</h3>
+            <p>Design de logo pour l'entreprise de construction GW Construction.</p>
+          </div>
+        </div>
+
+        <div class="pcard reveal d3">
+          <div class="pcard-img">
+            <img src="/Images/ROLL UO MOCKUP.jpg" alt="Roll up design"/>
+            <span class="pcard-badge b">Placement · Affichage</span>
+            <div class="pcard-overlay"><div class="pcard-overlay-text"><span class="material-symbols-outlined" style="font-size:1rem;">open_in_new</span> Voir le design</div></div>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat b">Roll up design</p>
+            <h3>Rool up pour l'entreprise de construction Gadwin Construction</h3>
+            <p>Design de roll up presentant les services de l'entreprise de construction Gadwin Construction.</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-sec" id="experience">
+    <div class="tl-in">
+      <div class="section-header reveal" style="text-align:center;">
+        <span class="sub2">Mon parcours</span>
+        <h2>Expérience professionnelle</h2>
+      </div>
+      <div class="tl-wrap">
+
+        <div class="tl-line"></div>
+        <div class="tl-item reveal d1">
+          <div class="tl-left">
+            <div class="tl-year">2023</div>
+          </div>
+
+          <div class="tl-dot active"></div>
+          <div class="tl-right">
+            <h3 class="tl-title">Fondateur — Digital LD Store</h3>
+            <p class="tl-company b">Entrepreneur · Douala</p>
+            <p class="tl-desc">Création et gestion d'une boutique virtuelle de vente d'ordinateurs (neufs & USA Grade A) et de maintenance informatique. Commerce via WhatsApp et réseau physique de fournisseurs.</p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal d2">
+          <div class="tl-left">
+            <div class="tl-year">2021</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-right">
+            <h3 class="tl-title">Instructeur Design Graphique</h3>
+            <p class="tl-company b">The Net Cameroon · Douala</p>
+            <p class="tl-desc">Formation de futurs créatifs en design graphique (Photoshop, Illustrator, Canva), outils numériques et développement web/mobile. Poste toujours actif.</p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal d3">
+          <div class="tl-left">
+            <div class="tl-year">2022</div>
+          </div>
+          <div class="tl-dot o"></div>
+          <div class="tl-right">
+            <h3 class="tl-title">Freelance — Design & Marketing Digital</h3>
+            <p class="tl-company o">Indépendant · Douala & Remote</p>
+            <p class="tl-desc">Création de flyers, identités visuelles, campagnes réseaux sociaux et packaging produits pour des clients locaux (Kombicar, Heritage Bayan Gam, Mañaka, Sunshiny Babeshop…)</p>
+          </div>
+        </div>
+
+         <div class="tl-item reveal d2">
+          <div class="tl-left">
+            <div class="tl-year">2024</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-right">
+            <h3 class="tl-title"> Freelance - Developpeur Web & Mobile</h3>
+            <p class="tl-company b">Indépendant · Douala & Remote</p>
+            <p class="tl-desc"> Création et maintenance de sites web et applications mobiles sur mesure pour divers clients.</p>
+          </div>
+        </div>
+        
+        <div class="tl-item reveal d3">
+          <div class="tl-left">
+            <div class="tl-year">2025</div>
+          </div>
+          <div class="tl-dot o"></div>
+          <div class="tl-right">
+            <h3 class="tl-title">Freelance — Business Analyst et Data</h3>
+            <p class="tl-company o">Indépendant · Douala & Remote</p>
+            <p class="tl-desc">Analyse et interprétation des données pour aider les entreprises à prendre des décisions éclairées. Création de rapports et de tableaux de bord interactifs.</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-sec">
+    <div class="cta-box reveal">
+      <h2>Vous avez un projet ? Parlons-en !</h2>
+      <p>Design, développement Mobile ou Web, marketing ou besoin d'un ordinateur — je suis disponible.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn btn-w">Me contacter <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">send</span></a>
+        <a href="services.html" class="btn btn-os">Voir mes services <span class="material-symbols-outlined">arrow_forward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-in">
+      <span class="ft-logo">Lucare · LD</span>
+      <span class="ft-copy">© 2025 Lucare SIEYANDJI · Douala, Cameroun 🇨🇲</span>
+      <div class="ft-links">
+        <a href="#">WhatsApp</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ JS — BLOC UNIQUE ═══════════════ -->
+  <script>
+    /* 1. Loader */
+    window.addEventListener('load',()=>{setTimeout(()=>{const l=document.getElementById('loader');l.classList.add('out');setTimeout(()=>l.remove(),600);},700);});
+
+    /* 2. Curseur */
+    const cD=document.getElementById('cDot'),cR=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cD.style.left=mx+'px';cD.style.top=my+'px';});
+    (function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cR.style.left=rx+'px';cR.style.top=ry+'px';requestAnimationFrame(ar);})();
+    document.querySelectorAll('a,button,.pcard,.ld-box').forEach(el=>{el.addEventListener('mouseenter',()=>cR.classList.add('h'));el.addEventListener('mouseleave',()=>cR.classList.remove('h'));});
+
+    /* 3. Scroll progress */
+    window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+
+    /* 4. Hamburger */
+    document.getElementById('hbg').addEventListener('click',()=>{const m=document.getElementById('mob'),i=document.getElementById('hbgI');m.classList.toggle('open');i.textContent=m.classList.contains('open')?'close':'menu';});
+
+    /* 5. Scroll reveal */
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+    document.querySelectorAll('.reveal,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+
+    /* 6. Ripple */
+    document.querySelectorAll('.btn').forEach(btn=>{btn.addEventListener('click',e=>{const r=document.createElement('span');r.className='rip';const rect=btn.getBoundingClientRect(),size=Math.max(rect.width,rect.height);r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;btn.appendChild(r);setTimeout(()=>r.remove(),700);});});
+
+    /* 7. Lightbox simple au clic sur carte projet */
+    document.querySelectorAll('.pcard').forEach(card=>{
+      card.addEventListener('click',()=>{
+        const img=card.querySelector('img');
+        if(!img)return;
+        const lb=document.createElement('div');
+        lb.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:2rem;';
+        const i=document.createElement('img');
+        i.src=img.src;
+        i.style.cssText='max-height:90vh;max-width:90vw;border-radius:12px;box-shadow:0 40px 80px rgba(0,0,0,.5);';
+        lb.appendChild(i);
+        lb.addEventListener('click',()=>lb.remove());
+        document.body.appendChild(lb);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luca SIEYANDJI | Expert Croissance Digitale · Douala</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- ═══════════════ CSS — BLOC UNIQUE ═══════════════ -->
+  <style>
+    :root{--p:#2C5394;--s:#fd6c00;--os:#1a1c1e;--osv:#43474e;--surf:#fff;--fh:'Plus Jakarta Sans',sans-serif;--fb:'Inter',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--fb);background:var(--surf);color:var(--os);overflow-x:hidden;cursor:none;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
+    @media(pointer:coarse){body{cursor:auto;}.c-dot,.c-ring{display:none!important;}}
+
+    /* Curseur */
+    .c-dot{width:8px;height:8px;background:var(--p);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+    .c-ring{width:38px;height:38px;border:2px solid rgba(44,83,148,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+    .c-ring.h{width:56px;height:56px;border-color:var(--s);}
+
+    /* Scroll progress */
+    #sp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--p),var(--s));z-index:9997;}
+
+    /* Loader */
+    #loader{position:fixed;inset:0;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
+    #loader.out{opacity:0;pointer-events:none;}
+    .l-logo{font-family:var(--fh);font-weight:900;font-size:2rem;color:var(--p);animation:pulse .8s ease infinite alternate;}
+    @keyframes pulse{from{opacity:.3;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
+
+    /* Nav */
+    nav{position:fixed;top:0;width:100%;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid #e2e8f0;box-shadow:0 1px 8px rgba(0,0,0,.06);}
+    .nav-in{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;max-width:1280px;margin:0 auto;}
+    .nav-logo{font-family:var(--fh);font-weight:900;font-size:1.2rem;color:var(--p);letter-spacing:-.03em;}
+    .nav-links{display:flex;gap:2rem;}
+    .nl{font-family:var(--fh);font-weight:700;font-size:.9rem;color:var(--osv);position:relative;padding-bottom:2px;transition:color .2s;}
+    .nl::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--p);transition:width .3s;}
+    .nl:hover::after,.nl.act::after{width:100%;}
+    .nl:hover,.nl.act{color:var(--p);}
+    .nav-lang{font-family:var(--fh);font-weight:700;font-size:.8rem;letter-spacing:.1em;color:var(--p);cursor:pointer;}
+    .hbg{display:none;background:none;border:none;cursor:pointer;color:var(--os);}
+    .mob{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#fff;padding:1.5rem 2rem;gap:1.5rem;border-bottom:1px solid #e2e8f0;z-index:49;box-shadow:0 4px 20px rgba(0,0,0,.08);opacity:0;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
+    .mob.open{display:flex;opacity:1;transform:translateY(0);}
+    .ml{font-family:var(--fh);font-weight:700;font-size:1.1rem;color:var(--osv);}
+    .ml.act{color:var(--p);}
+
+    /* Reveal animations */
+    .reveal,.rv-l,.rv-r{opacity:0;transition:opacity .7s ease,transform .7s ease;}
+    .reveal{transform:translateY(40px);}
+    .rv-l{transform:translateX(-40px);}
+    .rv-r{transform:translateX(40px);}
+    .reveal.on,.rv-l.on,.rv-r.on{opacity:1;transform:none;}
+    .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+    /* ── HERO ── */
+    .hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2.5rem 4rem;position:relative;overflow:hidden;background:#fff;}
+    #hcv{position:absolute;inset:0;pointer-events:none;z-index:0;}
+    .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+    .o1{width:420px;height:420px;background:rgba(44,83,148,.07);top:5%;right:-100px;animation:drift 9s ease-in-out infinite alternate;}
+    .o2{width:300px;height:300px;background:rgba(253,108,0,.06);bottom:5%;left:-80px;animation:drift 11s ease-in-out infinite alternate-reverse;}
+    @keyframes drift{from{transform:translate(0,0);}to{transform:translate(30px,20px);}}
+    .hero-in{max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1;}
+    .badge{display:inline-block;padding:.3rem 1rem;border-radius:999px;background:#f1f5f9;color:var(--p);font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;}
+    h1{font-family:var(--fh);font-weight:800;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.1;letter-spacing:-.03em;margin-bottom:1.2rem;}
+    h1 em{color:var(--p);font-style:italic;}
+    .hdesc{color:var(--osv);font-size:1.05rem;line-height:1.7;max-width:500px;margin-bottom:2rem;}
+    .btns{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;border-radius:6px;font-family:var(--fh);font-weight:700;font-size:.85rem;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s;}
+    .btn-p{background:var(--s);color:#fff;box-shadow:0 8px 24px rgba(253,108,0,.25);}
+    .btn-p:hover{transform:scale(1.04);box-shadow:0 14px 32px rgba(253,108,0,.4);}
+    .btn-o{background:#fff;color:var(--os);border:1.5px solid #e2e8f0;}
+    .btn-o:hover{background:#f8fafc;transform:scale(1.03);}
+    .btn .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:rip .6s linear;pointer-events:none;}
+    @keyframes rip{to{transform:scale(4);opacity:0;}}
+    .stats{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;}
+    .snum{font-family:var(--fh);font-weight:800;font-size:1.8rem;}
+    .snum.b{color:var(--p);}.snum.o{color:var(--s);}
+    .slbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--osv);}
+    .sdiv{width:1px;height:3rem;background:#e2e8f0;}
+
+    /* Photo hero */
+    .img-wrap{position:relative;}
+    .img-glow{position:absolute;inset:-1rem;background:linear-gradient(135deg,rgba(44,83,148,.12),rgba(253,108,0,.12));border-radius:20px;filter:blur(28px);transition:filter .5s;}
+    .img-wrap:hover .img-glow{filter:blur(40px);}
+    .img-box{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.2);border:3px solid var(--s);}
+    .img-box img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s ease;background:#0d0d0d;}
+    .img-wrap:hover .img-box img{transform:scale(1.04);}
+    .img-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.55) 0%,transparent 55%);}
+    .img-card{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);padding:1rem 1.4rem;border-radius:12px;border:1px solid rgba(255,255,255,.7);animation:floatY 3s ease-in-out infinite;display:flex;align-items:center;gap:.8rem;}
+    .img-card-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:blink 2s ease infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+    .img-card-text p{font-family:var(--fh);font-weight:700;font-size:.95rem;color:var(--os);}
+    .img-card-text span{font-size:.7rem;color:var(--p);text-transform:uppercase;letter-spacing:.1em;}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+    /* Badge orange sur l'image */
+    .img-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--s);color:#fff;font-family:var(--fh);font-weight:800;font-size:.75rem;padding:.5rem 1rem;border-radius:999px;letter-spacing:.08em;text-transform:uppercase;}
+
+    .scroll-i{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.5;animation:bounce 2s ease-in-out infinite;}
+    .scroll-i .lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--osv);}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(5px);}}
+
+    /* ── ABOUT ── */
+    .about{padding:6rem 2.5rem;background:#f8fafc;}
+    .about-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;}
+    .sec-title{font-family:var(--fh);font-weight:800;font-size:2.5rem;margin-bottom:1.2rem;}
+    .sec-text{color:var(--osv);font-size:1.05rem;line-height:1.8;margin-bottom:2rem;}
+    .vis-card{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+    .vis-card h3{font-family:var(--fh);font-weight:700;font-size:1.1rem;margin-bottom:.8rem;}
+    .vis-card p{color:var(--osv);font-style:italic;line-height:1.7;}
+    .cards-g{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+    .card{background:#fff;padding:2rem;border-radius:10px;border:1px solid #f1f5f9;box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+    .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(44,83,148,.12);}
+    .cbar{position:absolute;top:0;left:0;width:100%;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .35s;}
+    .card:hover .cbar{transform:scaleX(1);}
+    .cbar.b{background:var(--p);}.cbar.o{background:var(--s);}.cbar.a{background:#f59e0b;}
+    .cico{font-size:2.5rem;margin-bottom:1rem;display:block;}
+    .cico.b{color:var(--p);}.cico.o{color:var(--s);}.cico.a{color:#f59e0b;}
+    .card h4{font-family:var(--fh);font-weight:700;font-size:1.05rem;margin-bottom:.5rem;}
+    .card p{color:var(--osv);font-size:.88rem;line-height:1.6;}
+    .sk-box{margin-top:2rem;background:#fff;border-radius:10px;padding:2rem;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+    .sk-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+    .sk-hd h4{font-family:var(--fh);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;}
+    .sk-hd span{font-size:.85rem;color:var(--p);font-weight:700;}
+    .sk{margin-bottom:1rem;}
+    .sk-top{display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.4rem;}
+    .sk-name{color:var(--osv);font-weight:700;}
+    .sk-pct{font-weight:700;}.sk-pct.b{color:var(--p);}.sk-pct.o{color:var(--s);}.sk-pct.a{color:#f59e0b;}
+    .sk-track{background:#f1f5f9;border-radius:99px;height:8px;overflow:hidden;}
+    .sk-fill{height:100%;border-radius:99px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+    .sk-fill.b{background:var(--p);}.sk-fill.o{background:var(--s);}.sk-fill.a{background:#f59e0b;}
+
+    /* ── BENTO ── */
+    .bento{padding:6rem 2.5rem;background:#fff;}
+    .bento-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem;}
+    .bc{border-radius:12px;padding:2.5rem;transition:transform .3s,box-shadow .3s;}
+    .bc:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.1);}
+    .bc-main{background:#f8fafc;border:1px solid #f1f5f9;}
+    .bc-main h3{font-family:var(--fh);font-weight:700;font-size:.85rem;color:var(--s);margin-bottom:.5rem;}
+    .bc-main h2{font-family:var(--fh);font-weight:800;font-size:2rem;margin-bottom:1rem;line-height:1.2;}
+    .bc-main p{color:var(--osv);line-height:1.7;}
+    .bc-blue{background:var(--p);color:#fff;}
+    .bc-blue h4{font-family:var(--fh);font-weight:700;font-size:.9rem;opacity:.8;margin-bottom:.5rem;}
+    .bc-blue h3{font-family:var(--fh);font-weight:800;font-size:1.3rem;margin-bottom:1rem;}
+    .bc-blue p{font-size:.9rem;opacity:.8;line-height:1.6;}
+    .bc-dark{background:#0f172a;color:#fff;display:flex;flex-direction:column;justify-content:space-between;}
+    .bc-dark .ico{font-size:3rem;color:#fbbf24;}
+    .bc-dark h4{font-family:var(--fh);font-weight:700;font-size:1.1rem;margin-bottom:.3rem;}
+    .bc-dark p{color:#94a3b8;font-size:.9rem;}
+
+    /* ── CTA ── */
+    .cta{padding:6rem 2.5rem;background:#f8fafc;position:relative;overflow:hidden;}
+    .cta::before{content:'';position:absolute;inset:0;background:rgba(44,83,148,.04);}
+    .cta-in{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+    .cta-in h2{font-family:var(--fh);font-weight:800;font-size:clamp(2rem,4vw,3rem);margin-bottom:1.2rem;font-style:italic;}
+    .cta-in p{color:var(--osv);font-size:1.1rem;margin-bottom:3rem;line-height:1.7;}
+    .cta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;}
+    .btn-cp{background:var(--p);color:#fff;box-shadow:0 8px 24px rgba(44,83,148,.3);}
+    .btn-cp:hover{transform:scale(1.04);box-shadow:0 14px 32px rgba(44,83,148,.4);}
+    .btn-co{background:#fff;color:var(--os);border:1.5px solid #cbd5e1;}
+    .btn-co:hover{background:#f8fafc;}
+
+    /* Footer */
+    footer{background:#fff;padding:3rem 2.5rem;border-top:1px solid #e2e8f0;}
+    .ft-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+    .ft-logo{font-family:var(--fh);font-weight:700;font-size:1.1rem;color:var(--p);}
+    .ft-copy{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;}
+    .ft-links{display:flex;gap:1.5rem;}
+    .ft-links a{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;transition:color .2s;}
+    .ft-links a:hover{color:var(--s);}
+
+    /* Responsive */
+    @media(max-width:1024px){.about-in{grid-template-columns:1fr;gap:3rem;}.bento-in{grid-template-columns:1fr 1fr;}.bc-main{grid-column:span 2;}}
+    @media(max-width:768px){.nav-links,.nav-lang{display:none;}.hbg{display:block;}.hero-in{grid-template-columns:1fr;gap:2.5rem;}.img-wrap{order:-1;}.img-box{aspect-ratio:3/2;}.cards-g{grid-template-columns:1fr;}.bento-in{grid-template-columns:1fr;}.bc-main{grid-column:span 1;}.ft-in{flex-direction:column;text-align:center;}.nav-in,.hero,.about,.bento,.cta,footer{padding-left:1.5rem;padding-right:1.5rem;}}
+  </style>
+</head>
+<body>
+  <div id="loader"><span class="l-logo">Lucare LD</span></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div id="sp"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-in">
+      <a href="accueil.html" class="nav-logo">Lucare · LD</a>
+      <div class="nav-links">
+        <a href="accueil.html" class="nl act">Accueil</a>
+        <a href="services.html" class="nl">Services</a>
+        <a href="experience.html" class="nl">Portfolio</a>
+        <a href="contact.html" class="nl">Contact</a>
+      </div>
+      <span class="nav-lang">EN | FR</span>
+      <button class="hbg" id="hbg"><span class="material-symbols-outlined" id="hbgI" style="font-size:1.8rem;">menu</span></button>
+    </div>
+  </nav>
+  <div class="mob" id="mob">
+    <a href="accueil.html" class="ml act">Accueil</a>
+    <a href="services.html" class="ml">Services</a>
+    <a href="experience.html" class="ml">Portfolio</a>
+    <a href="contact.html" class="ml">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="hcv"></canvas>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="hero-in">
+      <!-- Texte gauche -->
+      <div>
+        <div class="reveal d1">
+          <span class="badge">Expert Marketing Digitale · Douala 🇨🇲</span>
+          <h1>Je suis<br/><em id="tw">Lucare SIEYANDJI.</em></h1>
+          <p class="hdesc">Designer graphique, développeur Flutter & entrepreneur digital. Je transforme vos idées en expériences visuelles percutantes et en produits numériques concrets.</p>
+        </div>
+        <div class="btns reveal d2">
+          <a href="contact.html" class="btn btn-p">
+            Travaillons ensemble
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1.2rem;">handshake</span>
+          </a>
+          <a href="experience.html" class="btn btn-o">Voir mon portfolio</a>
+        </div>
+        <div class="stats reveal d3">
+          <div>
+            <div class="snum b"><span class="cnt" data-target="2">0</span>+ ans</div>
+            <div class="slbl">d'expérience</div>
+          </div>
+          <div class="sdiv"></div>
+          <div>
+            <div class="snum o"><span class="cnt" data-target="20">0</span>+</div>
+            <div class="slbl">Clients servis</div>
+          </div>
+          <div class="sdiv"></div>
+          <div>
+            <div class="snum b"><span class="cnt" data-target="5">0</span></div>
+            <div class="slbl">Domaines maîtrisés</div>
+          </div>
+        </div>
+      </div>
+      <!-- Photo droite -->
+      <div class="img-wrap rv-r d2">
+        <div class="img-glow"></div>
+        <div class="img-box">
+          <img src="/Images/12.png" alt="Luca SIEYANDJI — Expert Marketing Digitale Douala"/>
+          <div class="img-ov"></div>
+          <span class="img-badge">Disponible ✓</span>
+          <div class="img-card">
+            <div class="img-card-dot"></div>
+            <div class="img-card-text">
+              <p>Lucare SIEYANDJI</p>
+              <span>The Net Cameroon · Instructeur & Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-i">
+      <span class="lbl">Scroll</span>
+      <span class="material-symbols-outlined" style="color:var(--p);">keyboard_arrow_down</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-in">
+      <div class="rv-l">
+        <h2 class="sec-title">À propos</h2>
+        <p class="sec-text">Je suis Lucare SIEYANDJI, créatif pluridisciplinaire basé à Douala. Je combine design graphique, développement mobile Flutter/Firebase, marketing digital, montage vidéo et analyse de données pour livrer des résultats concrets à mes clients.</p>
+        <p class="sec-text">Fondateur de <strong>Digital LD Store</strong> depuis 2023 — boutique virtuelle spécialisée en vente d'ordinateurs (neuf & USA Grade A) et maintenance informatique. Instructeur à <strong>The Net Cameroon</strong>.</p>
+        <div class="vis-card">
+          <h3>Ma vision</h3>
+          <p>"Les outils ne sont utiles que s'ils servent vos objectifs. Mon rôle est de vous aider à choisir les bons et à les faire travailler pour vous."</p>
+        </div>
+      </div>
+      <div class="rv-r">
+        <div class="cards-g">
+          <div class="card"><div class="cbar b"></div><span class="material-symbols-outlined cico b">smartphone</span><h4>Développement Mobile</h4><p>Apps Flutter/Firebase performantes et modernes pour iOS & Android.</p></div>
+          <div class="card"><div class="cbar o"></div><span class="material-symbols-outlined cico o">palette</span><h4>Design Graphique</h4><p>Flyers, logos, identités visuelles et mockups qui marquent les esprits.</p></div>
+          <div class="card"><div class="cbar a"></div><span class="material-symbols-outlined cico a">storefront</span><h4>Digital LD Store</h4><p>Vente d'ordinateurs neufs & USA Grade A + maintenance informatique.</p></div>
+          <div class="card"><div class="cbar b"></div><span class="material-symbols-outlined cico b">movie</span><h4>Vidéo & Drone</h4><p>Montage vidéo percutant et prises de vue drone professionnelles.</p></div>
+        </div>
+        <div class="sk-box reveal d2">
+          <div class="sk-hd"><h4>Compétences clés</h4><span>EN PROGRESSION</span></div>
+          <div class="sk"><div class="sk-top"><span class="sk-name">Design Graphique (Ps · Ai · Canva)</span><span class="sk-pct o">95%</span></div><div class="sk-track"><div class="sk-fill o" data-w="95"></div></div></div>
+          <div class="sk"><div class="sk-top"><span class="sk-name">Flutter / Firebase</span><span class="sk-pct b">85%</span></div><div class="sk-track"><div class="sk-fill b" data-w="85"></div></div></div>
+          <div class="sk"><div class="sk-top"><span class="sk-name">Marketing Digital</span><span class="sk-pct a">80%</span></div><div class="sk-track"><div class="sk-fill a" data-w="80"></div></div></div>
+          <div class="sk"><div class="sk-top"><span class="sk-name">Montage Vidéo & Drone</span><span class="sk-pct b">75%</span></div><div class="sk-track"><div class="sk-fill b" data-w="75"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO -->
+  <section class="bento">
+    <div class="bento-in">
+      <div class="bc bc-main rv-l">
+        <h3>Boutique active depuis 2023</h3>
+        <h2>Digital LD Store</h2>
+        <p>Vente d'ordinateurs neufs et USA Grade A, accessoires informatiques et service de maintenance. Géré sur WhatsApp avec des fournisseurs physiques à Douala · Akwa Ancien Number One.</p>
+      </div>
+      <div class="bc bc-blue reveal d2">
+        <h4>Enseignement</h4>
+        <h3>The Net Cameroon</h3>
+        <p>Instructeur en design graphique. Formation de la prochaine génération de créatifs camerounais.</p>
+      </div>
+      <div class="bc bc-dark reveal d3">
+        <span class="material-symbols-outlined ico">language</span>
+        <div>
+          <h4>Bilingue</h4>
+          <p>Services disponibles en FR & EN · Douala 🇨🇲</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-in reveal">
+      <h2>Prêt à concrétiser votre projet ?</h2>
+      <p>Design, développement, marketing ou ordinateurs — je suis là pour vous aider.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn btn-cp">Me contacter <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">send</span></a>
+        <a href="experience.html" class="btn btn-co">Voir mon Portfolio <span class="material-symbols-outlined">open_in_new</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-in">
+      <span class="ft-logo">Lucare · LD</span>
+      <span class="ft-copy">© 2025 Lucare SIEYANDJI · Douala, Cameroun</span>
+      <div class="ft-links">
+        <a href="#">WhatsApp</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ JS — BLOC UNIQUE ═══════════════ -->
+  <script>
+    /* 1. Loader */
+    /* Loader — se retire max après 1.5s peu importe ce qui charge */
+function hideLoader() {
+  const l = document.getElementById('loader');
+  if (!l) return;
+  l.classList.add('out');
+  setTimeout(() => l.remove(), 600);
+}
+
+window.addEventListener('load', () => hideLoader());
+setTimeout(hideLoader, 1500); /* Sécurité : force le retrait après 1.5s */
+
+    /* 2. Curseur */
+    const cD=document.getElementById('cDot'),cR=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cD.style.left=mx+'px';cD.style.top=my+'px';});
+    (function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cR.style.left=rx+'px';cR.style.top=ry+'px';requestAnimationFrame(ar);})();
+    document.querySelectorAll('a,button,.card,.bc,.img-wrap').forEach(el=>{el.addEventListener('mouseenter',()=>cR.classList.add('h'));el.addEventListener('mouseleave',()=>cR.classList.remove('h'));});
+
+    /* 3. Scroll progress */
+    window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+
+    /* 4. Hamburger */
+    document.getElementById('hbg').addEventListener('click',()=>{const m=document.getElementById('mob'),i=document.getElementById('hbgI');m.classList.toggle('open');i.textContent=m.classList.contains('open')?'close':'menu';});
+
+    /* 5. Scroll reveal */
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.12});
+    document.querySelectorAll('.reveal,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+
+    /* 6. Compteurs */
+    const cObs=new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,t=+el.dataset.target;let c=0;const ti=setInterval(()=>{c=Math.min(c+t/60,t);el.textContent=Math.floor(c);if(c>=t)clearInterval(ti);},16);cObs.unobserve(el);});},{threshold:.5});
+    document.querySelectorAll('.cnt').forEach(c=>cObs.observe(c));
+
+    /* 7. Skill bars */
+    const sObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';sObs.unobserve(e.target);}});},{threshold:.3});
+    document.querySelectorAll('.sk-fill').forEach(b=>sObs.observe(b));
+
+    /* 8. Particules canvas */
+    const cv=document.getElementById('hcv'),ctx=cv.getContext('2d');let W,H,pts=[];
+    function rsz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}rsz();window.addEventListener('resize',rsz);
+    class P{constructor(){this.r();}r(){this.x=Math.random()*W;this.y=Math.random()*H;this.dx=(Math.random()-.5)*.4;this.dy=(Math.random()-.5)*.4;this.rad=Math.random()*2+.5;this.a=Math.random()*.35+.1;this.c=Math.random()>.5?'44,83,148':'253,108,0';}move(){this.x+=this.dx;this.y+=this.dy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.r();}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.rad,0,Math.PI*2);ctx.fillStyle=`rgba(${this.c},${this.a})`;ctx.fill();}}
+    for(let i=0;i<55;i++)pts.push(new P());
+    (function anim(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.move();p.draw();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(44,83,148,${.07*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke();}}requestAnimationFrame(anim);})();
+
+    /* 9. Tilt 3D cartes */
+    document.querySelectorAll('.card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;c.style.transform=`perspective(600px) rotateX(${(-y/r.height*8).toFixed(2)}deg) rotateY(${(x/r.width*8).toFixed(2)}deg) translateY(-4px)`;});c.addEventListener('mouseleave',()=>{c.style.transform='';});});
+
+    /* 10. Ripple */
+    document.querySelectorAll('.btn').forEach(btn=>{btn.addEventListener('click',e=>{const r=document.createElement('span');r.className='rip';const rect=btn.getBoundingClientRect(),size=Math.max(rect.width,rect.height);r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;btn.appendChild(r);setTimeout(()=>r.remove(),700);});});
+
+    /* 11. Typewriter */
+    const words=['Lucare SIEYANDJI.','Designer Graphique.','Développeur Mobile.',' Développeur Web.','Entrepreneur Digital.','Instructeur & Créatif.', 'Business Analyst.','Passionné de Tech.','Basé à Douala.',];
+    let wi=0,ci=0,del=false;const twEl=document.getElementById('tw');
+    function tw(){const cur=words[wi];twEl.textContent=del?cur.slice(0,--ci):cur.slice(0,++ci);if(!del&&ci===cur.length){del=true;return setTimeout(tw,2000);}if(del&&ci===0){del=false;wi=(wi+1)%words.length;}setTimeout(tw,del?45:85);}
+    setTimeout(tw,1000);
+  </script>
+</body>
+</html>
