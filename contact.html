@@ -6,64 +6,66 @@
   <title>Contact | Lucare · LD</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            "primary":"#2C5394","secondary":"#fd6c00",
-            "surface":"#ffffff","surface-container":"#f3f3f9",
-            "surface-container-low":"#f7f7f8","surface-container-lowest":"#ffffff",
-            "surface-container-high":"#ebebee","on-surface":"#1a1c1e",
-            "on-surface-variant":"#43474e","on-primary":"#ffffff",
-            "primary-container":"#d7e2ff","outline":"#74777f","outline-variant":"#c4c6cf",
-          },
-          fontFamily:{"headline":["Plus Jakarta Sans","sans-serif"],"body":["Inter","sans-serif"]},
-        },
-      },
-    }
-  </script>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       CSS — BLOC UNIQUE
-  ═══════════════════════════════════════════════════════════ -->
+
   <style>
-    :root { --p: #2C5394; --s: #fd6c00; }
-    *, *::before, *::after { box-sizing: border-box; }
+    /* ── Variables ── */
+    :root {
+      --p: #2C5394;
+      --s: #fd6c00;
+      --os: #1a1c1e;
+      --osv: #43474e;
+      --surf: #ffffff;
+      --surf-low: #f7f7f8;
+      --surf-mid: #f3f3f9;
+      --surf-high: #ebebee;
+      --outline: #74777f;
+      --outline-v: #c4c6cf;
+      --fh: 'Plus Jakarta Sans', sans-serif;
+      --fb: 'Inter', sans-serif;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; cursor: none; }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    @media (pointer: coarse) { .c-dot, .c-ring { display: none; } body { cursor: auto; } }
+    body { font-family: var(--fb); background: var(--surf); color: var(--os); overflow-x: hidden; cursor: none; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    @media (pointer: coarse) { body { cursor: auto; } .c-dot, .c-ring { display: none !important; } }
 
-    /* Curseur */
-    .c-dot { width: 8px; height: 8px; background: var(--p); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
-    .c-ring { width: 38px; height: 38px; border: 2px solid rgba(44,83,148,.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width .2s, height .2s, border-color .2s; }
-    .c-ring.h { width: 58px; height: 58px; border-color: var(--s); }
+    /* ── Curseur ── */
+    .c-dot { width: 8px; height: 8px; background: var(--p); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .c-ring { width: 38px; height: 38px; border: 2px solid rgba(44,83,148,.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .2s, height .2s, border-color .2s; }
+    .c-ring.h { width: 56px; height: 56px; border-color: var(--s); }
 
-    /* Scroll progress */
-    #sp { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--p), var(--s)); z-index: 9997; transition: width .08s linear; }
+    /* ── Scroll progress ── */
+    #sp { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--p), var(--s)); z-index: 9997; }
 
-    /* Loader */
-    #loader { position: fixed; inset: 0; background: #fff; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+    /* ── Loader ── */
+    #loader { position: fixed; inset: 0; background: var(--surf); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity .5s; }
     #loader.out { opacity: 0; pointer-events: none; }
-    .l-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; font-size: 2rem; color: var(--p); animation: pulse .8s ease infinite alternate; }
+    .l-logo { font-family: var(--fh); font-weight: 900; font-size: 2rem; color: var(--p); animation: pulse .8s ease infinite alternate; }
     @keyframes pulse { from { opacity: .3; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
 
-    /* Nav */
-    .g-nav { background: rgba(255,255,255,.88); backdrop-filter: blur(20px); }
-    .nav-item { position: relative; padding-bottom: 2px; }
-    .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--p); transition: width .3s; }
-    .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+    /* ── Navigation ── */
+    nav { position: fixed; top: 0; width: 100%; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 8px rgba(0,0,0,.06); }
+    .nav-in { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; max-width: 1280px; margin: 0 auto; }
+    .nav-logo { font-family: var(--fh); font-weight: 900; font-size: 1.2rem; color: var(--os); letter-spacing: -.03em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nl { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--osv); position: relative; padding-bottom: 2px; transition: color .2s; }
+    .nl::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--p); transition: width .3s; }
+    .nl:hover::after, .nl.act::after { width: 100%; }
+    .nl:hover, .nl.act { color: var(--p); }
+    .nav-lang { font-family: var(--fh); font-weight: 700; font-size: .8rem; letter-spacing: .1em; color: var(--p); cursor: pointer; }
+    .hbg { display: none; background: none; border: none; cursor: pointer; color: var(--os); }
 
-    /* Menu mobile — PAS de display:none, on joue sur opacity uniquement */
+    /* ── Menu mobile ── */
     #mobMenu {
       display: flex !important;
       flex-direction: column;
       position: fixed;
-      top: 64px;
-      left: 0;
-      right: 0;
+      top: 64px; left: 0; right: 0;
       background: #fff;
       padding: 1.5rem 2rem;
       gap: 1.5rem;
@@ -75,307 +77,348 @@
       transform: translateY(-10px);
       transition: opacity .3s ease, transform .3s ease;
     }
-    #mobMenu.open {
-      opacity: 1 !important;
-      pointer-events: all !important;
-      transform: translateY(0) !important;
-    }
+    #mobMenu.open { opacity: 1 !important; pointer-events: all !important; transform: translateY(0) !important; }
+    .ml { font-family: var(--fh); font-weight: 700; font-size: 1.1rem; color: var(--osv); }
+    .ml.act { color: var(--p); }
 
-    /* Reveal */
-    .reveal, .rev-l, .rev-r { opacity: 0; transition: opacity .7s ease, transform .7s ease; }
+    /* ── Reveal ── */
+    .reveal, .rv-l, .rv-r { opacity: 0; transition: opacity .7s ease, transform .7s ease; }
     .reveal { transform: translateY(40px); }
-    .rev-l { transform: translateX(-40px); }
-    .rev-r { transform: translateX(40px); }
-    .reveal.on, .rev-l.on, .rev-r.on { opacity: 1; transform: none; }
+    .rv-l { transform: translateX(-40px); }
+    .rv-r { transform: translateX(40px); }
+    .reveal.on, .rv-l.on, .rv-r.on { opacity: 1; transform: none; }
     .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
 
-    /* Form */
-    .f-input { width: 100%; background: white; border: 2px solid #c4c6cf; border-radius: 8px; padding: 1rem; color: #1a1c1e; font-family: 'Inter', sans-serif; font-size: .95rem; transition: border-color .25s, box-shadow .25s, transform .2s; outline: none; }
-    .f-input:focus { border-color: var(--p); box-shadow: 0 0 0 4px rgba(44,83,148,.1); transform: translateY(-1px); }
-    .f-input:valid:not(:placeholder-shown) { border-color: #22c55e; }
-    .f-label { display: block; font-family: 'Inter', sans-serif; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #43474e; margin-bottom: .5rem; transition: color .2s; }
-    .f-group:focus-within .f-label { color: var(--p); }
-    .f-group { position: relative; }
-    .f-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #74777f; transition: color .2s; pointer-events: none; }
-    .f-group:focus-within .f-icon { color: var(--p); }
-
-    /* Canaux */
-    .chan { transition: transform .25s ease, box-shadow .25s ease; cursor: pointer; }
-    .chan:hover { transform: translateX(6px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-
-    /* Boutons */
-    .btn-r { position: relative; overflow: hidden; }
-    .btn-r .rip { position: absolute; border-radius: 50%; background: rgba(255,255,255,.3); transform: scale(0); animation: rip .6s linear; pointer-events: none; }
-    @keyframes rip { to { transform: scale(4); opacity: 0; } }
-    .glow-p { transition: transform .2s, box-shadow .3s; }
-    .glow-p:hover { transform: scale(1.03); box-shadow: 0 12px 32px rgba(44,83,148,.35); }
-    .btn-submit { transition: all .25s ease; }
-    .btn-submit:disabled { opacity: .7; cursor: not-allowed; }
-
-    /* Float */
-    .float { animation: floatY 3s ease-in-out infinite; }
-    @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-
-    /* Success */
-    @keyframes successPop { 0% { transform: scale(.8); opacity: 0; } 70% { transform: scale(1.05); } 100% { transform: scale(1); opacity: 1; } }
-    .success-pop { animation: successPop .5s ease forwards; }
-
-    /* Orbs */
+    /* ── Orbs ── */
     .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
     .orb1 { width: 400px; height: 400px; background: rgba(44,83,148,.05); top: -60px; right: -80px; animation: drift 10s ease-in-out infinite alternate; }
     .orb2 { width: 280px; height: 280px; background: rgba(253,108,0,.04); bottom: 0; left: -60px; animation: drift 13s ease-in-out infinite alternate-reverse; }
     @keyframes drift { from { transform: translate(0,0); } to { transform: translate(25px,20px); } }
 
-    /* Compteur */
-    .char-count { font-size: .7rem; font-family: 'Inter', sans-serif; color: #74777f; text-align: right; margin-top: .3rem; transition: color .2s; }
+    /* ── HERO ── */
+    .hero { padding: 9rem 2.5rem 5rem; position: relative; overflow: hidden; }
+    .hero-in { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-end; position: relative; z-index: 1; }
+    .hero-eyebrow { display: flex; align-items: center; gap: .5rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .2em; color: var(--s); margin-bottom: 1.2rem; }
+    .hero-eyebrow span.line { display: block; width: 2rem; height: 1px; background: var(--s); }
+    .hero-title { font-family: var(--fh); font-weight: 800; font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.05; letter-spacing: -.03em; margin-bottom: 1.5rem; }
+    .hero-title em { color: var(--p); font-style: italic; font-weight: 400; }
+    .hero-desc { color: var(--osv); font-size: 1.05rem; line-height: 1.7; max-width: 420px; margin-bottom: 1.5rem; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .pill { padding: .4rem 1rem; border-radius: 999px; font-size: .72rem; font-weight: 700; font-family: var(--fh); }
+    .pill-b { background: rgba(44,83,148,.1); color: var(--p); }
+    .pill-o { background: rgba(253,108,0,.1); color: var(--s); }
+    .pill-g { background: #f1f5f9; color: var(--osv); }
+
+    /* ── CONTENT ── */
+    .content { padding: 0 2.5rem 5rem; position: relative; }
+    .content-in { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.8fr; gap: 2rem; position: relative; z-index: 1; }
+
+    /* ── CANAUX ── */
+    .channels-col { display: flex; flex-direction: column; gap: 1rem; }
+    .channels-box { background: rgba(44,83,148,.05); padding: 2rem; border-radius: 14px; border: 1px solid rgba(44,83,148,.2); }
+    .channels-box h3 { font-family: var(--fh); font-weight: 700; font-size: 1.1rem; margin-bottom: .4rem; }
+    .channels-box > p { font-size: .85rem; color: var(--osv); margin-bottom: 2rem; }
+    .channels-list { display: flex; flex-direction: column; gap: 1rem; }
+    .chan { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #fff; border-radius: 10px; border: 1.5px solid rgba(196,198,207,.4); transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .chan:hover { transform: translateX(6px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .chan.whatsapp:hover { border-color: #22c55e; }
+    .chan.email:hover { border-color: var(--p); }
+    .chan.linkedin:hover { border-color: #3b82f6; }
+    .chan.instagram:hover { border-color: #ec4899; }
+    .chan-left { display: flex; align-items: center; gap: 1rem; }
+    .chan-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .chan-icon.green { background: #dcfce7; color: #16a34a; }
+    .chan-icon.blue { background: rgba(44,83,148,.1); color: var(--p); }
+    .chan-icon.lb { background: #dbeafe; color: #2563eb; }
+    .chan-icon.pink { background: #fce7f3; color: #db2777; }
+    .chan-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--osv); margin-bottom: .2rem; }
+    .chan-name { font-size: .95rem; font-weight: 600; color: var(--os); }
+    .chan-arrow { color: var(--outline); font-size: 1.2rem; }
+    .channels-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(196,198,207,.4); }
+    .channels-footer .city { font-size: .85rem; color: var(--osv); margin-bottom: .3rem; }
+    .channels-footer .city-name { font-family: var(--fh); font-weight: 700; font-size: 1rem; color: var(--os); }
+    .channels-footer .avail { font-size: .75rem; color: var(--osv); margin-top: .3rem; }
+
+    /* Carte déco */
+    .deco-card { position: relative; overflow: hidden; background: #0f172a; height: 180px; border-radius: 14px; display: flex; align-items: flex-end; padding: 1.5rem; animation: floatY 3s ease-in-out infinite; }
+    @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .deco-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44,83,148,.5), #0f172a); }
+    .deco-card .deco-icon { position: absolute; top: 1rem; right: 1rem; font-size: 5rem; color: rgba(255,255,255,.08); }
+    .deco-card .deco-text { position: relative; z-index: 1; }
+    .deco-card .deco-text small { font-family: var(--fh); font-size: .7rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.6); display: block; margin-bottom: .3rem; }
+    .deco-card .deco-text strong { font-family: var(--fh); font-size: 1.5rem; font-weight: 900; color: #fff; }
+
+    /* ── FORMULAIRE ── */
+    .form-col {}
+    .form-box { background: var(--surf-low); padding: 3rem; border-radius: 14px; border: 1px solid var(--outline-v); }
+    .form-top { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; align-items: center; }
+    .form-top h2 { font-family: var(--fh); font-weight: 700; font-size: 1.8rem; letter-spacing: -.02em; }
+    .form-top p { color: var(--osv); font-size: .9rem; margin-top: .4rem; }
+    .form-tags { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+    .form-tag { padding: .3rem .9rem; border-radius: 999px; background: #fff; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--outline-v); color: var(--osv); cursor: pointer; transition: background .2s, color .2s; }
+    .form-tag:hover { background: var(--p); color: #fff; }
+
+    /* Champs */
+    .form-body { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .f-group { position: relative; }
+    .f-label { display: block; font-family: var(--fb); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--osv); margin-bottom: .5rem; transition: color .2s; }
+    .f-group:focus-within .f-label { color: var(--p); }
+    .f-input { width: 100%; background: #fff; border: 2px solid var(--outline-v); border-radius: 8px; padding: .9rem 3rem .9rem 1rem; color: var(--os); font-family: var(--fb); font-size: .95rem; outline: none; transition: border-color .25s, box-shadow .25s, transform .2s; }
+    .f-input:focus { border-color: var(--p); box-shadow: 0 0 0 4px rgba(44,83,148,.1); transform: translateY(-1px); }
+    .f-input:valid:not(:placeholder-shown) { border-color: #22c55e; }
+    .f-icon { position: absolute; right: 14px; bottom: 14px; color: var(--outline); font-size: 1.2rem; pointer-events: none; transition: color .2s; }
+    .f-group:focus-within .f-icon { color: var(--p); }
+    textarea.f-input { resize: none; padding-top: .9rem; }
+    .char-count { font-size: .7rem; color: var(--outline); text-align: right; margin-top: .3rem; transition: color .2s; }
     .char-count.warn { color: var(--s); }
 
-    /* Spinner loading bouton */
-    .btn-submit.loading { display: flex; align-items: center; justify-content: center; gap: .6rem; }
+    /* Pied formulaire */
+    .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-top: .5rem; flex-wrap: wrap; }
+    .form-footer p { font-size: .85rem; color: var(--osv); max-width: 260px; line-height: 1.6; }
+    .form-footer strong { color: var(--os); }
+
+    /* Boutons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: 1rem 2.5rem; border-radius: 6px; font-family: var(--fh); font-weight: 800; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; border: none; position: relative; overflow: hidden; transition: transform .2s, box-shadow .3s, background .2s; }
+    .btn-submit { background: var(--p); color: #fff; box-shadow: 0 8px 24px rgba(44,83,148,.25); min-width: 200px; }
+    .btn-submit:hover { transform: scale(1.03); box-shadow: 0 12px 32px rgba(44,83,148,.4); }
+    .btn-submit:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+    .btn-submit.loading { gap: .8rem; }
     .btn-submit.loading::after { content: ''; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .btn .rip { position: absolute; border-radius: 50%; background: rgba(255,255,255,.3); transform: scale(0); animation: rip .6s linear; pointer-events: none; }
+    @keyframes rip { to { transform: scale(4); opacity: 0; } }
+
+    /* Succès */
+    #successMsg { display: none; padding: 3rem; text-align: center; }
+    #successMsg.show { display: block; animation: popIn .5s ease; }
+    @keyframes popIn { 0% { transform: scale(.8); opacity: 0; } 70% { transform: scale(1.05); } 100% { transform: scale(1); opacity: 1; } }
+    .success-icon { width: 80px; height: 80px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+    .success-icon span { font-size: 2.5rem; color: #16a34a; }
+    #successMsg h3 { font-family: var(--fh); font-weight: 700; font-size: 1.6rem; margin-bottom: .6rem; }
+    #successMsg p { color: var(--osv); margin-bottom: 1.5rem; }
+    .btn-reset { background: none; border: 1.5px solid var(--outline-v); color: var(--os); padding: .8rem 1.8rem; border-radius: 6px; font-family: var(--fh); font-weight: 600; font-size: .85rem; cursor: pointer; transition: background .2s; }
+    .btn-reset:hover { background: var(--surf-low); }
+
+    /* ── Footer ── */
+    footer { background: var(--surf-low); padding: 3rem 2.5rem; border-top: 1px solid var(--outline-v); }
+    .ft-in { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    .ft-logo { font-family: var(--fh); font-weight: 700; font-size: 1.1rem; color: var(--os); }
+    .ft-copy { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #94a3b8; }
+    .ft-links { display: flex; gap: 1.5rem; }
+    .ft-links a { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #94a3b8; transition: color .2s; }
+    .ft-links a:hover { color: var(--s); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .content-in { grid-template-columns: 1fr; }
+      .channels-col { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .channels-box { flex: 1; min-width: 280px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-lang { display: none; }
+      .hbg { display: block; }
+      .hero-in { grid-template-columns: 1fr; gap: 2rem; }
+      .form-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-footer { flex-direction: column; align-items: flex-start; }
+      .btn-submit { width: 100%; }
+      .nav-in, .hero, .content, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .ft-in { flex-direction: column; text-align: center; }
+      .ft-links { justify-content: center; }
+    }
   </style>
 </head>
-<body class="bg-white text-on-surface font-body">
+<body>
 
-  <!-- Loader -->
   <div id="loader"><span class="l-logo">Contact</span></div>
-
-  <!-- Curseur -->
   <div class="c-dot" id="cDot"></div>
   <div class="c-ring" id="cRing"></div>
-
-  <!-- Scroll progress -->
   <div id="sp"></div>
 
-  <!-- ── Navigation ── -->
-  <nav class="g-nav fixed top-0 w-full z-50 border-b border-gray-200 shadow-sm">
-    <div class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
-      <a href="accueil.html" class="text-xl font-black text-on-surface tracking-tighter font-headline">Lucare · LD</a>
-      <div class="hidden md:flex items-center gap-8 font-headline font-bold tracking-tight">
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="accueil.html">Accueil</a>
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="services.html">Services</a>
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="experience.html">Portfolio</a>
-        <a class="nav-item active text-primary" href="contact.html">Contact</a>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">Lucare · LD</a>
+      <div class="nav-links">
+        <a href="index.html" class="nl">Accueil</a>
+        <a href="services.html" class="nl">Services</a>
+        <a href="experience.html" class="nl">Portfolio</a>
+        <a href="contact.html" class="nl act">Contact</a>
       </div>
-      <div class="hidden md:flex text-primary font-headline font-bold tracking-tight cursor-pointer hover:opacity-70 transition-opacity select-none">EN | FR</div>
-      <!-- Bouton hamburger — visible uniquement mobile -->
-      <button id="hbg" class="md:hidden text-on-surface focus:outline-none z-40p">
-        <span class="material-symbols-outlined text-3xl" id="hbgIcon">menu</span>
+      <span class="nav-lang">EN | FR</span>
+      <button class="hbg" id="hbg">
+        <span class="material-symbols-outlined" id="hbgI" style="font-size:1.8rem;">menu</span>
       </button>
     </div>
   </nav>
-
-  <!-- Menu mobile — ID uniquement, pas de classe Tailwind qui pourrait interférer -->
   <div id="mobMenu">
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="accueil.html">Accueil</a>
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="services.html">Services</a>
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="experience.html">Portfolio</a>
-    <a class="text-primary font-headline font-bold text-lg" href="contact.html">Contact</a>
+    <a href="index.html" class="ml">Accueil</a>
+    <a href="services.html" class="ml">Services</a>
+    <a href="experience.html" class="ml">Portfolio</a>
+    <a href="contact.html" class="ml act">Contact</a>
   </div>
 
-  <main class="pt-32 pb-24 px-6 md:px-10 relative">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-
-    <!-- Hero -->
-    <div class="max-w-7xl mx-auto mb-20 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-        <div class="space-y-6 rev-l d1">
-          <div class="flex items-center gap-2 text-secondary font-body text-sm uppercase tracking-widest">
-            <span class="w-8 h-[1px] bg-secondary"></span>À votre écoute
-          </div>
-          <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight text-on-surface">
-            Comment puis-je<br/><span class="text-primary italic font-normal">— vous aider ?</span>
-          </h1>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="hero-in">
+        <div class="rv-l d1">
+          <div class="hero-eyebrow"><span class="line"></span>À votre écoute</div>
+          <h1 class="hero-title">Comment puis-je<br/><em>— vous aider ?</em></h1>
         </div>
-        <div class="pb-4 rev-r d2">
-          <p class="text-on-surface-variant text-lg max-w-md font-light leading-relaxed">
-            Vous avez une idée, un défi ou simplement envie d'échanger ? Choisissez le canal qui vous convient pour démarrer.
-          </p>
-          <div class="flex flex-wrap gap-3 mt-6">
-            <span class="px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-bold font-body uppercase tracking-widest">Réponse 24h</span>
-            <span class="px-4 py-2 rounded-full bg-secondary/10 text-secondary text-xs font-bold font-body uppercase tracking-widest">FR & EN</span>
-            <span class="px-4 py-2 rounded-full bg-slate-100 text-on-surface-variant text-xs font-bold font-body uppercase tracking-widest">Douala 🇨🇲</span>
+        <div class="rv-r d2">
+          <p class="hero-desc">Vous avez une idée, un défi ou simplement envie d'échanger ? Choisissez le canal qui vous convient pour démarrer.</p>
+          <div class="hero-pills">
+            <span class="pill pill-b">Réponse 24h</span>
+            <span class="pill pill-o">FR & EN</span>
+            <span class="pill pill-g">Douala 🇨🇲</span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Contenu principal -->
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+    <!-- CONTENT -->
+    <section class="content">
+      <div class="orb orb1" style="top:0;right:-80px;"></div>
+      <div class="orb orb2" style="bottom:0;left:-60px;"></div>
+      <div class="content-in">
 
-      <!-- Colonne gauche : canaux -->
-      <div class="lg:col-span-4 space-y-4">
-        <div class="bg-primary/5 p-8 rounded-xl flex flex-col border border-primary/20 rev-l d2">
-          <h3 class="font-headline text-xl font-bold mb-2">Le plus simple ?</h3>
-          <p class="text-sm text-on-surface-variant mb-8">Pour une réponse rapide, privilégiez mes canaux directs.</p>
-          <div class="space-y-4" id="channels">
-            <!-- WhatsApp -->
-            <a class="chan flex items-center justify-between p-4 bg-white rounded-lg border-2 border-secondary/25 hover:border-secondary/60" href="https://wa.me/237670574973" target="_blank">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-green-600 text-xl" style="font-variation-settings:'FILL' 1;">chat_bubble</span>
+        <!-- Canaux gauche -->
+        <div class="channels-col rv-l d2">
+          <div class="channels-box">
+            <h3>Le plus simple ?</h3>
+            <p>Pour une réponse rapide, privilégiez mes canaux directs.</p>
+            <div class="channels-list">
+              <a class="chan whatsapp" href="https://wa.me/237670574973" target="_blank">
+                <div class="chan-left">
+                  <div class="chan-icon green"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1.2rem;">chat_bubble</span></div>
+                  <div><div class="chan-label">WhatsApp</div><div class="chan-name">Discutons en direct</div></div>
                 </div>
-                <div>
-                  <p class="text-xs text-on-surface-variant uppercase tracking-tighter font-bold">WhatsApp</p>
-                  <p class="text-on-surface font-medium">Discutons en direct</p>
+                <span class="material-symbols-outlined chan-arrow">arrow_forward</span>
+              </a>
+              <a class="chan email" href="https://mail.google.com/mail/?view=cm&to=lucadjiako12@gmail.com" target="_blank">
+                <div class="chan-left">
+                  <div class="chan-icon blue"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1.2rem;">alternate_email</span></div>
+                  <div><div class="chan-label">Email</div><div class="chan-name">lucadjiako12@gmail.com</div></div>
                 </div>
-              </div>
-              <span class="material-symbols-outlined text-secondary">arrow_forward</span>
-            </a>
-            <!-- Email -->
-            <a class="chan flex items-center justify-between p-4 bg-white rounded-lg border border-outline-variant/20 hover:border-primary/40" href="https://mail.google.com/mail/?view=cm&to=lucadjiako12@gmail.com" target="_blank">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings:'FILL' 1;">alternate_email</span>
+                <span class="material-symbols-outlined chan-arrow">arrow_forward</span>
+              </a>
+              <a class="chan linkedin" href="https://linkedin.com/in/lucare-djiako" target="_blank">
+                <div class="chan-left">
+                  <div class="chan-icon lb"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1.2rem;">group</span></div>
+                  <div><div class="chan-label">LinkedIn</div><div class="chan-name">Suivez mes actualités</div></div>
                 </div>
-                <div>
-                  <p class="text-xs text-on-surface-variant uppercase tracking-tighter font-bold">Email</p>
-                  <p class="text-on-surface font-medium text-sm">lucadjiako12@gmail.com</p>
+                <span class="material-symbols-outlined chan-arrow">arrow_forward</span>
+              </a>
+              <a class="chan instagram" href="https://www.instagram.com/digital_ld_store_agency" target="_blank">
+                <div class="chan-left">
+                  <div class="chan-icon pink"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1.2rem;">photo_camera</span></div>
+                  <div><div class="chan-label">Instagram</div><div class="chan-name">Mes créations visuelles</div></div>
                 </div>
-              </div>
-              <span class="material-symbols-outlined text-outline">arrow_forward</span>
-            </a>
-            <!-- LinkedIn -->
-            <a class="chan flex items-center justify-between p-4 bg-white rounded-lg border border-outline-variant/20 hover:border-blue-300" href="https://linkedin.com/in/lucare-djiako" target="_blank">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-blue-600 text-xl" style="font-variation-settings:'FILL' 1;">group</span>
-                </div>
-                <div>
-                  <p class="text-xs text-on-surface-variant uppercase tracking-tighter font-bold">LinkedIn</p>
-                  <p class="text-on-surface font-medium">Suivez mes actualités</p>
-                </div>
-              </div>
-              <span class="material-symbols-outlined text-outline">arrow_forward</span>
-            </a>
-            <!-- Instagram -->
-            <a class="chan flex items-center justify-between p-4 bg-white rounded-lg border border-outline-variant/20 hover:border-pink-300" href="https://www.instagram.com/digital_ld_store_agency?igsh=Nng0bjl3MzEydndx" target="_blank">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-pink-500 text-xl" style="font-variation-settings:'FILL' 1;">photo_camera</span>
-                </div>
-                <div>
-                  <p class="text-xs text-on-surface-variant uppercase tracking-tighter font-bold">Instagram</p>
-                  <p class="text-on-surface font-medium">Mes créations visuelles</p>
-                </div>
-              </div>
-              <span class="material-symbols-outlined text-outline">arrow_forward</span>
-            </a>
-          </div>
-          <div class="mt-8 pt-6 border-t border-outline-variant/30">
-            <p class="text-sm text-on-surface-variant mb-1">Basé à</p>
-            <p class="text-on-surface font-bold font-headline">Douala, Cameroun 🇨🇲</p>
-            <p class="text-xs text-on-surface-variant mt-1">Disponible en FR & EN · Télétravail mondial</p>
-          </div>
-        </div>
-        <!-- Carte déco -->
-        <div class="relative overflow-hidden bg-slate-900 h-44 rounded-xl flex items-end p-6 float">
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/40 to-slate-900"></div>
-          <div class="absolute top-4 right-4 opacity-20">
-            <span class="material-symbols-outlined text-white" style="font-size:80px;">public</span>
-          </div>
-          <div class="relative z-10">
-            <span class="font-headline text-xs font-black tracking-widest text-white/80 uppercase block mb-1">Votre réussite</span>
-            <span class="font-headline text-2xl font-black text-white">Ma priorité.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Colonne droite : formulaire -->
-      <div class="lg:col-span-8 rev-r d2">
-        <div class="bg-surface-container-low p-8 md:p-12 rounded-xl border border-outline-variant/30">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <div>
-              <h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface">Envoyez un petit mot</h2>
-              <p class="text-on-surface-variant mt-2">Dites-moi en plus sur vos besoins</p>
+                <span class="material-symbols-outlined chan-arrow">arrow_forward</span>
+              </a>
             </div>
-            <div class="flex flex-wrap gap-2 items-center">
-              <span class="px-4 py-1.5 rounded-full bg-white text-xs font-medium uppercase tracking-widest border border-outline-variant/30 text-on-surface-variant hover:bg-primary hover:text-white transition-colors cursor-pointer">Découverte</span>
-              <span class="px-4 py-1.5 rounded-full bg-white text-xs font-medium uppercase tracking-widest border border-outline-variant/30 text-on-surface-variant hover:bg-primary hover:text-white transition-colors cursor-pointer">Accélération</span>
-              <span class="px-4 py-1.5 rounded-full bg-white text-xs font-medium uppercase tracking-widest border border-outline-variant/30 text-on-surface-variant hover:bg-primary hover:text-white transition-colors cursor-pointer">Collaboration</span>
+            <div class="channels-footer">
+              <p class="city">Basé à</p>
+              <p class="city-name">Douala, Cameroun 🇨🇲</p>
+              <p class="avail">Disponible en FR & EN · Télétravail mondial</p>
             </div>
           </div>
+          <div class="deco-card">
+            <span class="material-symbols-outlined deco-icon">public</span>
+            <div class="deco-text"><small>Votre réussite</small><strong>Ma priorité.</strong></div>
+          </div>
+        </div>
 
-          <!-- Formulaire -->
-          <div class="space-y-6" id="contactForm">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="f-group">
-                <label class="f-label">Nom complet</label>
-                <input id="fName" class="f-input" placeholder="Comment vous appelez-vous ?" type="text"/>
-                <span class="material-symbols-outlined f-icon text-xl">person</span>
+        <!-- Formulaire droite -->
+        <div class="form-col rv-r d2">
+          <div class="form-box">
+            <div class="form-top">
+              <div>
+                <h2>Envoyez un petit mot</h2>
+                <p>Dites-moi en plus sur vos besoins</p>
+              </div>
+              <div class="form-tags">
+                <span class="form-tag">Découverte</span>
+                <span class="form-tag">Accélération</span>
+                <span class="form-tag">Collaboration</span>
+              </div>
+            </div>
+
+            <!-- Champs -->
+            <div class="form-body" id="contactForm">
+              <div class="form-row">
+                <div class="f-group">
+                  <label class="f-label">Nom complet</label>
+                  <input id="fName" class="f-input" placeholder="Comment vous appelez-vous ?" type="text"/>
+                  <span class="material-symbols-outlined f-icon">person</span>
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Email</label>
+                  <input id="fEmail" class="f-input" placeholder="Où peut-on vous répondre ?" type="email"/>
+                  <span class="material-symbols-outlined f-icon">alternate_email</span>
+                </div>
               </div>
               <div class="f-group">
-                <label class="f-label">Email</label>
-                <input id="fEmail" class="f-input" placeholder="Où peut-on vous répondre ?" type="email"/>
-                <span class="material-symbols-outlined f-icon text-xl">alternate_email</span>
+                <label class="f-label">Téléphone / WhatsApp</label>
+                <input id="fTel" class="f-input" placeholder="+237 xxx xxx xxx" type="tel"/>
+                <span class="material-symbols-outlined f-icon">phone</span>
+              </div>
+              <div class="f-group">
+                <label class="f-label">Sujet de discussion</label>
+                <select id="fSubject" class="f-input" style="cursor:pointer; appearance:none;">
+                  <option value="">Choisissez un sujet...</option>
+                  <option>Faisons connaissance</option>
+                  <option>Marketing Digital & Réseaux Sociaux</option>
+                  <option>Création de site web / app mobile</option>
+                  <option>Design Graphique & Identité visuelle</option>
+                  <option>Montage vidéo & Photo / Drone</option>
+                  <option>Analyse de données & Business Analytics</option>
+                  <option>Sourcing & E-commerce</option>
+                  <option>Achat d'ordinateurs</option>
+                  <option>Autre chose</option>
+                </select>
+                <span class="material-symbols-outlined f-icon">expand_more</span>
+              </div>
+              <div class="f-group">
+                <label class="f-label">Message</label>
+                <textarea id="fMsg" class="f-input" placeholder="Racontez-moi tout..." rows="6" maxlength="500" oninput="updateCount(this)"></textarea>
+                <div class="char-count" id="charCount">0 / 500 caractères</div>
+              </div>
+              <div class="form-footer">
+                <p>Je lis chaque message avec attention et reviens vers vous dans les <strong>24h</strong>.</p>
+                <button id="submitBtn" class="btn btn-submit" type="button">Envoyer maintenant</button>
               </div>
             </div>
-            <div class="f-group">
-              <label class="f-label">Téléphone / WhatsApp</label>
-              <input id="fTel" class="f-input" placeholder="+237 xxx xxx xxx" type="tel"/>
-              <span class="material-symbols-outlined f-icon text-xl">phone</span>
-            </div>
-            <div class="f-group">
-              <label class="f-label">Sujet de discussion</label>
-              <select id="fSubject" class="f-input appearance-none" style="cursor:pointer;">
-                <option value="">Choisissez un sujet...</option>
-                <option>Faisons connaissance</option>
-                <option>Marketing Digital & Réseaux Sociaux</option>
-                <option>Création de site web / app mobile</option>
-                <option>Design Graphique & Identité visuelle</option>
-                <option>Montage vidéo & Photo / Drone</option>
-                <option>Analyse de données & Business Analytics</option>
-                <option>Sourcing & E-commerce</option>
-                <option>Achat d'ordinateurs</option>
-                <option>Autre chose</option>
-              </select>
-              <span class="material-symbols-outlined f-icon text-xl">expand_more</span>
-            </div>
-            <div class="f-group">
-              <label class="f-label">Message</label>
-              <textarea id="fMsg" class="f-input resize-none" placeholder="Racontez-moi tout... votre projet, vos besoins, vos questions..." rows="6" maxlength="500" oninput="updateCount(this)"></textarea>
-              <div class="char-count" id="charCount">0 / 500 caractères</div>
-            </div>
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-2">
-              <p class="text-sm text-on-surface-variant max-w-xs leading-tight">Je lis chaque message avec attention et reviens vers vous dans les <strong>24h</strong>.</p>
-              <button id="submitBtn" class="btn-r glow-p btn-submit w-full md:w-auto px-10 py-5 bg-primary text-white font-headline font-black uppercase tracking-widest rounded-md shadow-lg shadow-primary/20" type="button">
-                Envoyer maintenant
-              </button>
-            </div>
-          </div>
 
-          <!-- Message succès -->
-          <div id="successMsg" class="hidden p-8 text-center">
-            <div class="success-pop">
-              <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <span class="material-symbols-outlined text-green-500" style="font-size:40px;font-variation-settings:'FILL' 1;">check_circle</span>
+            <!-- Succès -->
+            <div id="successMsg">
+              <div class="success-icon">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
               </div>
-              <h3 class="font-headline font-bold text-2xl text-on-surface mb-2">Message envoyé ! 🎉</h3>
-              <p class="text-on-surface-variant">Merci pour votre message. Je vous recontacte très bientôt.</p>
-              <button onclick="resetForm()" class="mt-6 px-6 py-3 border border-outline-variant text-on-surface rounded-md font-bold hover:bg-slate-50 transition-colors font-headline">Envoyer un autre message</button>
+              <h3>Message envoyé ! 🎉</h3>
+              <p>Merci ! Je vous recontacte très bientôt.</p>
+              <button class="btn-reset" onclick="resetForm()">Envoyer un autre message</button>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
+    </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-surface-container-lowest w-full py-12 px-6 md:px-10 border-t border-outline-variant/20">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-      <div>
-        <span class="text-lg font-bold text-on-surface font-headline">Lucare · LD</span>
-        <p class="text-on-surface-variant font-body text-xs mt-2 uppercase tracking-widest">© 2024 · Partenaire de votre transformation.</p>
-      </div>
-      <div class="flex justify-center gap-8">
-        <a class="text-on-surface-variant hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest" href="https://wa.me/237670574973" target="_blank">WhatsApp</a>
-        <a class="text-on-surface-variant hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest" href="https://linkedin.com/in/lucare-djiako" target="_blank">LinkedIn</a>
-        <a class="text-on-surface-variant hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest" href="https://www.instagram.com/digital_ld_store_agency?igsh=Nng0bjl3MzEydndx" target="_blank">Instagram</a>
-      </div>
-      <div class="md:text-right">
-        <a class="text-on-surface-variant hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest" href="#">Confidentialité</a>
+  <footer>
+    <div class="ft-in">
+      <span class="ft-logo">Lucare · LD</span>
+      <span class="ft-copy">© 2025 Lucare Sieyandji · Douala 🇨🇲</span>
+      <div class="ft-links">
+        <a href="https://wa.me/237670574973" target="_blank">WhatsApp</a>
+        <a href="https://linkedin.com/in/lucare-djiako" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/digital_ld_store_agency" target="_blank">Instagram</a>
       </div>
     </div>
   </footer>
@@ -384,82 +427,74 @@
        JAVASCRIPT — BLOC UNIQUE
   ═══════════════════════════════════════════════════════════ -->
   <script>
-    /* ── 1. Loader ── */
+    /* 1. Loader */
     const loader = document.getElementById('loader');
     if (loader) {
       setTimeout(() => {
         loader.style.opacity = '0';
         loader.style.pointerEvents = 'none';
         setTimeout(() => loader.remove(), 500);
-      }, 1000);
+      }, 900);
     }
 
-    /* ── 2. Curseur ── */
-    const cDot = document.getElementById('cDot');
-    const cRing = document.getElementById('cRing');
+    /* 2. Curseur */
+    const cD = document.getElementById('cDot'), cR = document.getElementById('cRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cDot.style.left = mx + 'px'; cDot.style.top = my + 'px';
-    });
-    (function ar() {
-      rx += (mx - rx) * .12; ry += (my - ry) * .12;
-      cRing.style.left = rx + 'px'; cRing.style.top = ry + 'px';
-      requestAnimationFrame(ar);
-    })();
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cD.style.left = mx + 'px'; cD.style.top = my + 'px'; });
+    (function ar() { rx += (mx - rx) * .12; ry += (my - ry) * .12; cR.style.left = rx + 'px'; cR.style.top = ry + 'px'; requestAnimationFrame(ar); })();
     document.querySelectorAll('a, button, .chan, .f-input').forEach(el => {
-      el.addEventListener('mouseenter', () => cRing.classList.add('h'));
-      el.addEventListener('mouseleave', () => cRing.classList.remove('h'));
+      el.addEventListener('mouseenter', () => cR.classList.add('h'));
+      el.addEventListener('mouseleave', () => cR.classList.remove('h'));
     });
 
-    /* ── 3. Scroll progress ── */
+    /* 3. Scroll progress */
     window.addEventListener('scroll', () => {
-      const total = document.body.scrollHeight - window.innerHeight;
-      document.getElementById('sp').style.width = (window.scrollY / total * 100) + '%';
+      document.getElementById('sp').style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
     });
 
-    /* ── 4. Hamburger ── */
-    const hbgBtn  = document.getElementById('hbg');
-    const mobMenu = document.getElementById('mobMenu');
-    const hbgIcon = document.getElementById('hbgIcon');
-
-    hbgBtn.addEventListener('click', () => {
-      mobMenu.classList.toggle('open');
-      hbgIcon.textContent = mobMenu.classList.contains('open') ? 'close' : 'menu';
+    /* 4. Hamburger */
+    const hbg = document.getElementById('hbg');
+    const mob = document.getElementById('mobMenu');
+    const hbgI = document.getElementById('hbgI');
+    hbg.addEventListener('click', () => {
+      mob.classList.toggle('open');
+      hbgI.textContent = mob.classList.contains('open') ? 'close' : 'menu';
     });
-    mobMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobMenu.classList.remove('open');
-        hbgIcon.textContent = 'menu';
-      });
-    });
+    mob.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { mob.classList.remove('open'); hbgI.textContent = 'menu'; }));
 
-    /* ── 5. Scroll reveal ── */
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-    }, { threshold: .12 });
-    document.querySelectorAll('.reveal, .rev-l, .rev-r').forEach(el => obs.observe(el));
+    /* 5. Scroll reveal */
+    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: .1 });
+    document.querySelectorAll('.reveal, .rv-l, .rv-r').forEach(el => obs.observe(el));
 
-    /* ── 6. Ripple ── */
-    document.querySelectorAll('.btn-r').forEach(btn => {
+    /* 6. Ripple */
+    document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('click', e => {
-        const r = document.createElement('span');
-        r.className = 'rip';
+        const r = document.createElement('span'); r.className = 'rip';
         const rect = btn.getBoundingClientRect(), size = Math.max(rect.width, rect.height);
-        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
-        btn.appendChild(r);
-        setTimeout(() => r.remove(), 700);
+        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+        btn.appendChild(r); setTimeout(() => r.remove(), 700);
       });
     });
 
-    /* ── 7. Compteur caractères ── */
+    /* 7. Compteur caractères */
     function updateCount(el) {
       const cc = document.getElementById('charCount');
       cc.textContent = el.value.length + ' / 500 caractères';
       cc.classList.toggle('warn', el.value.length > 400);
     }
 
-    /* ── 8. Formulaire → Formspree ── */
+    /* 8. Animation entrée canaux */
+    document.querySelectorAll('.chan').forEach((c, i) => {
+      c.style.opacity = '0';
+      c.style.transform = 'translateX(-20px)';
+      setTimeout(() => {
+        c.style.transition = 'opacity .5s ease, transform .5s ease, box-shadow .25s ease';
+        c.style.opacity = '1';
+        c.style.transform = 'translateX(0)';
+      }, 400 + i * 120);
+    });
+
+    /* 9. Formulaire → Formspree */
     document.getElementById('submitBtn').addEventListener('click', async function () {
       const name    = document.getElementById('fName').value.trim();
       const email   = document.getElementById('fEmail').value.trim();
@@ -488,18 +523,17 @@
 
       /* Envoi Formspree */
       try {
-        const response = await fetch('https://formspree.io/f/xwvwawye', {
+        const res = await fetch('https://formspree.io/f/xwvwawye', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, tel, subject, message: msg })
         });
-        if (response.ok) {
-          document.getElementById('contactForm').classList.add('hidden');
-          document.getElementById('successMsg').classList.remove('hidden');
-        } else {
-          throw new Error('Erreur serveur');
-        }
-      } catch (err) {
+        if (res.ok) {
+          document.getElementById('contactForm').style.display = 'none';
+          const s = document.getElementById('successMsg');
+          s.classList.add('show');
+        } else throw new Error();
+      } catch {
         this.textContent = 'Erreur, réessayez';
         this.classList.remove('loading');
         this.style.background = '#ef4444';
@@ -508,10 +542,11 @@
       }
     });
 
-    /* ── 9. Reset formulaire ── */
+    /* 10. Reset formulaire */
     function resetForm() {
-      document.getElementById('contactForm').classList.remove('hidden');
-      document.getElementById('successMsg').classList.add('hidden');
+      document.getElementById('contactForm').style.display = 'flex';
+      document.getElementById('successMsg').classList.remove('show');
+      document.getElementById('successMsg').style.display = 'none';
       ['fName', 'fEmail', 'fTel', 'fMsg'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('fSubject').selectedIndex = 0;
       document.getElementById('charCount').textContent = '0 / 500 caractères';
@@ -520,17 +555,6 @@
       btn.classList.remove('loading');
       btn.textContent = 'Envoyer maintenant';
     }
-
-    /* ── 10. Animation entrée canaux ── */
-    document.querySelectorAll('.chan').forEach((c, i) => {
-      c.style.opacity = '0';
-      c.style.transform = 'translateX(-20px)';
-      setTimeout(() => {
-        c.style.transition = 'opacity .5s ease, transform .5s ease';
-        c.style.opacity = '1';
-        c.style.transform = 'translateX(0)';
-      }, 300 + i * 120);
-    });
   </script>
 </body>
 </html>

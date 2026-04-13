@@ -3,121 +3,242 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Services | GrowthArchitect</title>
+  <title>Services | Lucare · LD</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            "primary":"#2C5394","secondary":"#fd6c00","tertiary":"#695f00",
-            "surface":"#fdfbff","surface-container":"#f3f3f7",
-            "surface-container-low":"#f7f6f9","surface-container-lowest":"#ffffff",
-            "surface-container-high":"#ecebed","on-surface":"#1a1c1e",
-            "on-surface-variant":"#43474e","on-primary":"#ffffff","on-secondary":"#ffffff",
-            "primary-container":"#d7e2ff","outline":"#74777f","outline-variant":"#c4c6cf",
-          },
-          fontFamily:{"headline":["Plus Jakarta Sans","sans-serif"],"body":["Inter","sans-serif"]},
-        },
-      },
-    }
-  </script>
 
   <!-- ═══════════════════════════════════════════════════════════
-       CSS — BLOC UNIQUE
+       CSS — BLOC UNIQUE — ZÉRO TAILWIND
   ═══════════════════════════════════════════════════════════ -->
   <style>
-    :root{--p:#2C5394;--s:#fd6c00;}
-    *,*::before,*::after{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{overflow-x:hidden;cursor:none;}
-    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+    /* ── Variables ── */
+    :root {
+      --p: #2C5394;
+      --s: #fd6c00;
+      --amber: #f59e0b;
+      --os: #1a1c1e;
+      --osv: #43474e;
+      --surf: #fdfbff;
+      --surf-low: #f7f6f9;
+      --surf-mid: #f3f3f7;
+      --surf-high: #ecebed;
+      --outline: #74777f;
+      --outline-v: #c4c6cf;
+      --fh: 'Plus Jakarta Sans', sans-serif;
+      --fb: 'Inter', sans-serif;
+    }
 
-    /* Curseur */
-    .c-dot{width:8px;height:8px;background:var(--p);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
-    .c-ring{width:38px;height:38px;border:2px solid rgba(44,83,148,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
-    .c-ring.h{width:58px;height:58px;border-color:var(--s);}
-    @media(pointer:coarse){.c-dot,.c-ring{display:none;}body{cursor:auto;}}
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--surf); color: var(--os); overflow-x: hidden; cursor: none; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    @media (pointer: coarse) { body { cursor: auto; } .c-dot, .c-ring { display: none !important; } }
 
-    /* Scroll progress */
-    #sp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--p),var(--s));z-index:9997;transition:width .08s linear;}
+    /* ── Curseur ── */
+    .c-dot { width: 8px; height: 8px; background: var(--p); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .c-ring { width: 38px; height: 38px; border: 2px solid rgba(44,83,148,.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .2s, height .2s, border-color .2s; }
+    .c-ring.h { width: 56px; height: 56px; border-color: var(--s); }
 
-    /* Loader */
-    #loader{position:fixed;inset:0;background:#fdfbff;z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity .5s;}
-    #loader.out{opacity:0;pointer-events:none;}
-    .l-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:2rem;color:var(--p);animation:pulse .8s ease infinite alternate;}
-    @keyframes pulse{from{opacity:.3;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
+    /* ── Scroll progress ── */
+    #sp { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--p), var(--s)); z-index: 9997; }
 
-    /* Nav */
-    .g-nav{background:rgba(255,255,255,.88);backdrop-filter:blur(20px);}
-    .nav-item{position:relative;padding-bottom:2px;}
-    .nav-item::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--p);transition:width .3s;}
-    .nav-item:hover::after,.nav-item.active::after{width:100%;}
+    /* ── Loader ── */
+    #loader { position: fixed; inset: 0; background: var(--surf); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity .5s; }
+    #loader.out { opacity: 0; pointer-events: none; }
+    .l-logo { font-family: var(--fh); font-weight: 900; font-size: 2rem; color: var(--p); animation: pulse .8s ease infinite alternate; }
+    @keyframes pulse { from { opacity: .3; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
 
-    /* Mobile nav */
-    .mob-menu{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#fff;padding:1.5rem 2rem;gap:1.5rem;border-bottom:1px solid #e2e8f0;z-index:49;box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-8px);opacity:0;transition:transform .3s,opacity .3s;}
-    .mob-menu.open{display:flex;transform:translateY(0);opacity:1;}
+    /* ── Navigation ── */
+    nav { position: fixed; top: 0; width: 100%; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 8px rgba(0,0,0,.06); }
+    .nav-in { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; max-width: 1280px; margin: 0 auto; }
+    .nav-logo { font-family: var(--fh); font-weight: 900; font-size: 1.2rem; color: var(--os); letter-spacing: -.03em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nl { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--osv); position: relative; padding-bottom: 2px; transition: color .2s; }
+    .nl::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--p); transition: width .3s; }
+    .nl:hover::after, .nl.act::after { width: 100%; }
+    .nl:hover, .nl.act { color: var(--p); }
+    .nav-lang { font-family: var(--fh); font-weight: 700; font-size: .8rem; letter-spacing: .1em; color: var(--p); cursor: pointer; }
+    .hbg { display: none; background: none; border: none; cursor: pointer; color: var(--os); }
 
-    /* Reveal */
-    .reveal,.rev-l,.rev-r{opacity:0;transition:opacity .7s ease,transform .7s ease;}
-    .reveal{transform:translateY(40px);}
-    .rev-l{transform:translateX(-40px);}
-    .rev-r{transform:translateX(40px);}
-    .reveal.on,.rev-l.on,.rev-r.on{opacity:1;transform:none;}
-    .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+    /* ── Menu mobile ── */
+    #mobMenu {
+      display: flex !important;
+      flex-direction: column;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: #fff;
+      padding: 1.5rem 2rem;
+      gap: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 9990;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #mobMenu.open { opacity: 1 !important; pointer-events: all !important; transform: translateY(0) !important; }
+    .ml { font-family: var(--fh); font-weight: 700; font-size: 1.1rem; color: var(--osv); }
+    .ml.act { color: var(--p); }
 
-    /* Service card accent bar */
-    .svc-card{position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;}
-    .svc-card::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;transition:width .5s ease;}
-    .svc-card:hover::before{width:100%;}
-    .svc-card:hover{transform:translateY(-5px);box-shadow:0 24px 48px rgba(0,0,0,.1);}
-    .ac-blue::before{background:var(--p);}
-    .ac-orange::before{background:var(--s);}
-    .ac-yellow::before{background:#f59e0b;}
+    /* ── Reveal animations ── */
+    .reveal, .rv-l, .rv-r { opacity: 0; transition: opacity .7s ease, transform .7s ease; }
+    .reveal { transform: translateY(40px); }
+    .rv-l { transform: translateX(-40px); }
+    .rv-r { transform: translateX(40px); }
+    .reveal.on, .rv-l.on, .rv-r.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
 
-    /* Mini cards hover */
-    .mini-card{transition:transform .25s ease,box-shadow .25s ease;}
-    .mini-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(44,83,148,.1);}
+    /* ── Orbs ── */
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .orb1 { width: 360px; height: 360px; background: rgba(44,83,148,.07); top: 0; right: -80px; animation: drift 9s ease-in-out infinite alternate; }
+    .orb2 { width: 280px; height: 280px; background: rgba(253,108,0,.06); bottom: 0; left: -60px; animation: drift 13s ease-in-out infinite alternate-reverse; }
+    @keyframes drift { from { transform: translate(0,0); } to { transform: translate(25px,20px); } }
 
-    /* Bento hover */
-    .bhov{transition:transform .3s ease,box-shadow .3s ease;}
-    .bhov:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(44,83,148,.12);}
+    /* ── HERO ── */
+    .hero { padding: 9rem 2.5rem 5rem; background: linear-gradient(135deg, var(--surf), var(--surf-mid)); position: relative; overflow: hidden; }
+    .hero-in { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+    .hero-sub { font-family: var(--fb); font-size: .8rem; text-transform: uppercase; letter-spacing: .25em; color: var(--s); display: block; margin-bottom: 1rem; }
+    .hero-title { font-family: var(--fh); font-weight: 800; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1.2rem; }
+    .hero-title span { color: var(--p); }
+    .hero-desc { color: var(--osv); font-size: 1.05rem; line-height: 1.7; max-width: 480px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-img-wrap { position: relative; }
+    .hero-img { aspect-ratio: 1; background: var(--surf-low); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.12); border: 1px solid var(--outline-v); display: flex; align-items: center; justify-content: center; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-stat { position: absolute; bottom: -1.5rem; left: -1.5rem; background: #fff; padding: 1.2rem 1.5rem; border-radius: 10px; border-left: 4px solid var(--s); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+    .hero-stat .num { font-family: var(--fh); font-weight: 900; font-size: 1.8rem; color: var(--s); }
+    .hero-stat .lbl { font-size: .7rem; color: var(--osv); text-transform: uppercase; letter-spacing: .08em; }
 
-    /* Ripple */
-    .btn-r{position:relative;overflow:hidden;}
-    .btn-r .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:rip .6s linear;pointer-events:none;}
-    @keyframes rip{to{transform:scale(4);opacity:0;}}
+    /* ── Boutons ── */
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: 1rem 2rem; border-radius: 6px; font-family: var(--fh); font-weight: 700; font-size: .85rem; cursor: pointer; border: none; position: relative; overflow: hidden; transition: transform .2s, box-shadow .3s; }
+    .btn-p { background: var(--p); color: #fff; box-shadow: 0 8px 24px rgba(44,83,148,.3); }
+    .btn-p:hover { transform: scale(1.04); box-shadow: 0 14px 32px rgba(44,83,148,.4); }
+    .btn-o { background: #fff; color: var(--os); border: 1.5px solid var(--outline-v); }
+    .btn-o:hover { background: var(--surf-low); transform: scale(1.02); }
+    .btn-w { background: #fff; color: var(--p); font-size: 1.1rem; padding: 1.2rem 2.5rem; }
+    .btn-w:hover { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+    .btn .rip { position: absolute; border-radius: 50%; background: rgba(255,255,255,.3); transform: scale(0); animation: rip .6s linear; pointer-events: none; }
+    @keyframes rip { to { transform: scale(4); opacity: 0; } }
 
-    /* Glow */
-    .glow-p{transition:transform .2s,box-shadow .3s;}
-    .glow-p:hover{transform:scale(1.04);box-shadow:0 12px 32px rgba(44,83,148,.35);}
-    .glow-s{transition:transform .2s,box-shadow .3s;}
-    .glow-s:hover{transform:scale(1.04);box-shadow:0 12px 32px rgba(253,108,0,.35);}
+    /* ── SECTION HEADER ── */
+    .sec-hd { margin-bottom: 3rem; }
+    .sec-hd .sub { font-family: var(--fb); font-size: .75rem; text-transform: uppercase; letter-spacing: .2em; color: var(--p); display: block; margin-bottom: .6rem; }
+    .sec-hd h2 { font-family: var(--fh); font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.8rem); letter-spacing: -.02em; }
 
-    /* Counter */
-    .cnt{display:inline-block;}
+    /* ── SERVICES BENTO ── */
+    .svcs { padding: 5rem 2.5rem; background: var(--surf); }
+    .svcs-in { max-width: 1280px; margin: 0 auto; }
+    .svc-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .svc-grid2 { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; }
 
-    /* Tag hover */
-    .tag{transition:background .2s,color .2s,transform .2s;}
-    .tag:hover{background:var(--p);color:#fff;transform:scale(1.05);}
+    .svc-card { background: var(--surf-low); border-radius: 12px; padding: 2.5rem; border: 1px solid rgba(196,198,207,.3); position: relative; overflow: hidden; transition: transform .3s, box-shadow .3s, background .3s; }
+    .svc-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,.1); background: #fff; }
+    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 3px; transition: width .5s ease; }
+    .svc-card:hover::before { width: 100%; }
+    .svc-card.blue::before { background: var(--p); }
+    .svc-card.orange::before { background: var(--s); }
+    .svc-card.amber::before { background: var(--amber); }
 
-    /* CTA bg pattern */
-    .cta-pattern{background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:28px 28px;}
+    .svc-icon { font-size: 2.5rem; display: block; margin-bottom: 1.5rem; transition: transform .2s; }
+    .svc-card:hover .svc-icon { transform: scale(1.2) rotate(-5deg); }
+    .svc-icon.b { color: var(--p); }
+    .svc-icon.o { color: var(--s); }
+    .svc-icon.a { color: var(--amber); }
 
-    /* Hero orb */
-    .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:drift 9s ease-in-out infinite alternate;}
-    .orb1{width:360px;height:360px;background:rgba(44,83,148,.07);top:0;right:-80px;}
-    .orb2{width:280px;height:280px;background:rgba(253,108,0,.06);bottom:0;left:-60px;animation-delay:3s;}
-    @keyframes drift{from{transform:translate(0,0);}to{transform:translate(25px,20px);}}
+    .svc-card h3 { font-family: var(--fh); font-weight: 700; font-size: 1.5rem; margin-bottom: .8rem; }
+    .svc-card p { color: var(--osv); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
 
-    /* Icon bounce on hover */
-    .icon-bounce{transition:transform .2s ease;}
-    .svc-card:hover .icon-bounce{transform:scale(1.2) rotate(-5deg);}
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag { padding: .3rem .9rem; background: #fff; border-radius: 999px; font-size: .72rem; font-weight: 700; color: var(--osv); border: 1px solid var(--outline-v); cursor: pointer; transition: background .2s, color .2s, transform .15s; }
+    .tag:hover { background: var(--p); color: #fff; transform: scale(1.06); }
+
+    /* Svc inline content (marketing) */
+    .svc-row { display: flex; gap: 2rem; align-items: flex-start; }
+    .svc-row-text { flex: 1; }
+    .svc-row-img { width: 240px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--outline-v); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: #fff; }
+    .svc-row-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Ecommerce mini items */
+    .mini-items-v { display: flex; flex-direction: column; gap: .8rem; margin-top: 1rem; }
+    .mini-item-v { background: #fff; border-radius: 8px; padding: .8rem 1rem; border-left: 3px solid var(--s); }
+    .mini-item-v .label { font-size: .7rem; font-weight: 700; text-transform: uppercase; color: var(--s); margin-bottom: .2rem; }
+    .mini-item-v .val { font-size: .9rem; font-weight: 600; }
+
+    /* Dev mini grid */
+    .dev-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
+    .mini-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    .mini-card { background: #fff; border-radius: 8px; padding: 1.2rem; border: 1px solid var(--outline-v); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: transform .2s, box-shadow .2s; aspect-ratio: 16/9; }
+    .mini-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+    .mini-card .ico { font-size: 1.6rem; color: var(--outline); margin-bottom: .4rem; }
+    .mini-card p { font-family: var(--fh); font-weight: 700; font-size: .8rem; margin-bottom: .2rem; }
+    .mini-card span { font-size: .7rem; color: var(--osv); }
+    .mini-card-imgs { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+    .mini-card-imgs img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1px solid var(--outline-v); }
+
+    /* ── SERVICES SECONDAIRES ── */
+    .sec2 { padding: 5rem 2.5rem; background: #f8fafc; }
+    .sec2-in { max-width: 1280px; margin: 0 auto; }
+    .sec2-hd { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+    .sec2-hd h2 { font-family: var(--fh); font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.8rem); max-width: 500px; }
+    .sec2-hd p { color: var(--osv); font-size: .9rem; max-width: 260px; text-align: right; }
+    .mini-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+    .mini-g-card { background: #fff; padding: 2rem 1.5rem; border-radius: 10px; border: 1px solid rgba(196,198,207,.4); transition: transform .25s, box-shadow .25s; }
+    .mini-g-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(44,83,148,.1); }
+    .mini-g-card .ico2 { font-size: 2rem; color: var(--outline); display: block; margin-bottom: 1rem; transition: color .2s, transform .2s; }
+    .mini-g-card:hover .ico2 { color: var(--p); transform: scale(1.2) rotate(-5deg); }
+    .mini-g-card h4 { font-family: var(--fh); font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+    .mini-g-card p { font-size: .78rem; color: var(--osv); line-height: 1.5; }
+
+    /* ── CTA ── */
+    .cta-sec { padding: 5rem 2.5rem; }
+    .cta-box { max-width: 1280px; margin: 0 auto; background: var(--p); color: #fff; border-radius: 16px; padding: 5rem 3rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(44,83,148,.3); }
+    .cta-box::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 28px 28px; }
+    .cta-box h2 { font-family: var(--fh); font-weight: 900; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1rem; position: relative; z-index: 1; }
+    .cta-box p { opacity: .85; font-size: 1.1rem; margin-bottom: 3rem; font-style: italic; position: relative; z-index: 1; }
+    .cta-box a { position: relative; z-index: 1; }
+
+    /* ── Footer ── */
+    footer { background: var(--surf-high); padding: 3rem 2.5rem; border-top: 1px solid var(--outline-v); }
+    .ft-in { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    .ft-logo { font-family: var(--fh); font-weight: 700; font-size: 1.1rem; color: var(--os); }
+    .ft-copy { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #94a3b8; }
+    .ft-links { display: flex; gap: 1.5rem; }
+    .ft-links a { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #94a3b8; transition: color .2s; }
+    .ft-links a:hover { color: var(--s); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc-grid2 { grid-template-columns: 1fr; }
+      .dev-grid { grid-template-columns: 1fr; }
+      .mini-grid { grid-template-columns: repeat(3, 1fr); }
+      .svc-row { flex-direction: column; }
+      .svc-row-img { width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-lang { display: none; }
+      .hbg { display: block; }
+      .hero-in { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-img-wrap { order: -1; }
+      .mini-grid { grid-template-columns: repeat(2, 1fr); }
+      .mini-cards-grid { grid-template-columns: 1fr 1fr; }
+      .sec2-hd { flex-direction: column; }
+      .sec2-hd p { text-align: left; }
+      .nav-in, .hero, .svcs, .sec2, .cta-sec, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .ft-in { flex-direction: column; text-align: center; }
+      .ft-links { justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .mini-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
-<body class="bg-surface text-on-surface font-body">
+<body>
 
   <div id="loader"><span class="l-logo">Services</span></div>
   <div class="c-dot" id="cDot"></div>
@@ -125,217 +246,215 @@
   <div id="sp"></div>
 
   <!-- Navigation -->
-  <nav class="g-nav fixed top-0 w-full z-50 border-b border-slate-200 shadow-sm">
-    <div class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
-      <a href="accueil.html" class="text-xl font-black text-on-surface tracking-tighter font-headline">GrowthArchitect</a>
-      <div class="hidden md:flex gap-8 items-center font-headline font-bold tracking-tight">
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="accueil.html">Accueil</a>
-        <a class="nav-item active text-primary" href="services.html">Services</a>
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="experience.html">Portfolio</a>
-        <a class="nav-item text-on-surface-variant hover:text-primary transition-colors" href="contact.html">Contact</a>
+  <nav>
+    <div class="nav-in">
+      <a href="index.html" class="nav-logo">Lucare · LD</a>
+      <div class="nav-links">
+        <a href="index.html" class="nl">Accueil</a>
+        <a href="services.html" class="nl act">Services</a>
+        <a href="experience.html" class="nl">Portfolio</a>
+        <a href="contact.html" class="nl">Contact</a>
       </div>
-      <div class="hidden md:flex text-primary font-headline font-bold tracking-tight cursor-pointer hover:opacity-70 transition-opacity select-none">FR | EN</div>
-      <button id="hbg" class="md:hidden text-on-surface focus:outline-none">
-        <span class="material-symbols-outlined text-3xl" id="hbgIcon">menu</span>
+      <span class="nav-lang">FR | EN</span>
+      <button class="hbg" id="hbg">
+        <span class="material-symbols-outlined" id="hbgI" style="font-size:1.8rem;">menu</span>
       </button>
     </div>
   </nav>
-  <div class="mob-menu" id="mobMenu">
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="accueil.html">Accueil</a>
-    <a class="text-primary font-headline font-bold text-lg" href="services.html">Services</a>
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="experience.html">Portfolio</a>
-    <a class="text-on-surface-variant font-headline font-bold text-lg" href="contact.html">Contact</a>
+  <div id="mobMenu">
+    <a href="index.html" class="ml">Accueil</a>
+    <a href="services.html" class="ml act">Services</a>
+    <a href="experience.html" class="ml">Portfolio</a>
+    <a href="contact.html" class="ml">Contact</a>
   </div>
 
-  <main class="pt-24">
-    <!-- ── HERO ── -->
-    <section class="px-6 md:px-10 py-20 md:py-32 bg-gradient-to-br from-surface to-surface-container overflow-hidden relative">
+  <main>
+    <!-- HERO -->
+    <section class="hero">
       <div class="orb orb1"></div>
       <div class="orb orb2"></div>
-      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="rev-l d1">
-          <span class="text-secondary font-body text-sm uppercase tracking-widest mb-4 block">À vos côtés pour grandir</span>
-          <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight mb-8 text-on-surface">
-            Des solutions simples<br/><span class="text-primary">pour votre croissance</span>
-          </h1>
-          <p class="text-on-surface-variant text-lg max-w-xl mb-10 leading-relaxed">On vous aide à simplifier votre présence en ligne et à booster vos résultats grâce à une stratégie claire.</p>
-          <div class="flex flex-wrap gap-4">
-            <a href="contact.html" class="btn-r glow-p bg-primary text-on-primary px-8 py-4 rounded-md font-bold shadow-lg shadow-primary/20">Parlons de votre projet</a>
-            <a href="#services" class="btn-r bg-white border border-outline-variant text-on-surface px-8 py-4 rounded-md font-bold hover:bg-surface-container-high transition-colors">Voir les services</a>
+      <div class="hero-in">
+        <div class="rv-l d1">
+          <span class="hero-sub">À vos côtés pour grandir</span>
+          <h1 class="hero-title">Des solutions simples<br/><span>pour votre croissance</span></h1>
+          <p class="hero-desc">J'aide les entreprises à simplifier leur présence en ligne et à booster leurs résultats grâce à une stratégie claire et des outils efficaces.</p>
+          <div class="hero-btns">
+            <a href="contact.html" class="btn btn-p">Parlons de votre projet</a>
+            <a href="#services" class="btn btn-o">Voir les services</a>
           </div>
         </div>
-        <div class="relative rev-r d2">
-          <div class="aspect-square bg-surface-container-low rounded-xl overflow-hidden shadow-xl border border-outline-variant/30 flex items-center justify-center">
-            <div class="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center" id="heroParallax">
-              <!-- <span class="material-symbols-outlined text-primary/20" style="font-size:160px;">trending_up</span> -->
-               <img src="./Images/metq.jpg" alt="">
-            </div>
+        <div class="hero-img-wrap rv-r d2">
+          <div class="hero-img">
+            <img src="./Images/metq.jpg" alt="Services Lucare LD" onerror="this.style.display='none'"/>
           </div>
-          <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg border-l-4 border-secondary shadow-xl max-w-xs border border-black/5">
-            <p class="text-secondary font-headline font-black text-3xl mb-1">+<span class="cnt" data-target="240">0</span>%</p>
-            <p class="text-on-surface-variant text-sm font-body uppercase">De ventes en plus</p>
+          <div class="hero-stat">
+            <div class="num">+<span class="cnt" data-target="240">0</span>%</div>
+            <div class="lbl">De ventes en plus</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── SERVICES BENTO ── -->
-    <section class="px-6 md:px-10 py-20 max-w-7xl mx-auto" id="services">
-      <div class="mb-16 reveal">
-        <span class="text-primary font-body text-sm uppercase tracking-widest mb-4 block">Ce que nous faisons</span>
-        <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight text-on-surface">Nos services principaux</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-
-        <!-- Marketing Digital -->
-        <div class="md:col-span-8 svc-card ac-blue bg-surface-container-low p-10 rounded-xl border border-outline-variant/20 reveal d1">
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex-1">
-              <span class="material-symbols-outlined text-primary text-4xl mb-6 icon-bounce block">campaign</span>
-              <h3 class="font-headline text-3xl font-bold mb-4 text-on-surface">Marketing Digital</h3>
-              <p class="text-on-surface-variant mb-6">Des campagnes publicitaires ciblées sur les réseaux sociaux pour attirer des clients qualifiés et augmenter vos ventes.</p>
-              <div class="flex flex-wrap gap-3">
-                <span class="tag px-4 py-2 bg-white rounded-full text-xs font-body font-bold text-on-surface-variant border border-outline-variant/30 cursor-pointer">Facebook Ads</span>
-                <span class="tag px-4 py-2 bg-white rounded-full text-xs font-body font-bold text-on-surface-variant border border-outline-variant/30 cursor-pointer">Instagram</span>
-                <span class="tag px-4 py-2 bg-white rounded-full text-xs font-body font-bold text-on-surface-variant border border-outline-variant/30 cursor-pointer">TikTok</span>
-                <span class="tag px-4 py-2 bg-white rounded-full text-xs font-body font-bold text-on-surface-variant border border-outline-variant/30 cursor-pointer">Google Ads</span>
-              </div>
-            </div>
-            <div class="w-full md:w-1/3 aspect-video md:aspect-square bg-white rounded-lg overflow-hidden border border-outline-variant/30 flex items-center justify-center">
-              <!-- <span class="material-symbols-outlined text-primary/25" style="font-size:80px;">ads_click</span> -->
-              <img src="./Images/app.jpg" alt="">
-            </div>
-          </div>
+    <!-- SERVICES BENTO -->
+    <section class="svcs" id="services">
+      <div class="svcs-in">
+        <div class="sec-hd reveal">
+          <span class="sub">Ce que je fais</span>
+          <h2>Mes services principaux</h2>
         </div>
 
-        <!-- E-commerce -->
-        <div class="md:col-span-4 svc-card ac-orange bg-surface-container-low p-10 rounded-xl border border-outline-variant/20 flex flex-col justify-between reveal d2">
-          <div>
-            <span class="material-symbols-outlined text-secondary text-4xl mb-6 icon-bounce block">storefront</span>
-            <h3 class="font-headline text-2xl font-bold mb-4 text-on-surface">E-commerce</h3>
-            <p class="text-on-surface-variant text-sm mb-6">Boutiques en ligne performantes avec gestion des paiements et du stock.</p>
-          </div>
-          <div class="space-y-3">
-            <div class="p-3 bg-white rounded border-l-2 border-secondary/50"><p class="text-xs font-body text-secondary uppercase font-bold">Optimisé</p><p class="text-sm font-medium text-on-surface">Conversion maximale</p></div>
-            <div class="p-3 bg-white rounded border-l-2 border-secondary/50"><p class="text-xs font-body text-secondary uppercase font-bold">Mobile-first</p><p class="text-sm font-medium text-on-surface">Expérience fluide</p></div>
-          </div>
-        </div>
-        <!-- Data -->
-        <div class="md:col-span-4 svc-card ac-yellow bg-surface-container-low p-10 rounded-xl border border-outline-variant/20 reveal d3">
-          <span class="material-symbols-outlined text-amber-600 text-4xl mb-6 icon-bounce block">analytics</span>
-          <h3 class="font-headline text-2xl font-bold mb-4 text-on-surface">Analyse de données</h3>
-          <p class="text-on-surface-variant text-sm mb-6">On traduit vos chiffres en conseils simples pour prendre les bonnes décisions.</p>
-          <div class="space-y-3">
-            <div class="p-3 bg-white rounded border-l-2 border-amber-400"><p class="text-xs font-body text-amber-600 uppercase font-bold">Comprendre</p><p class="text-sm font-medium text-on-surface">Ce qui plaît à vos clients</p></div>
-            <div class="p-3 bg-white rounded border-l-2 border-amber-400"><p class="text-xs font-body text-amber-600 uppercase font-bold">Agir</p><p class="text-sm font-medium text-on-surface">Rapports faciles à lire</p></div>
-          </div>
-        </div>
-        <!-- Dev -->
-        <div class="md:col-span-8 svc-card ac-orange bg-surface-container-low p-10 rounded-xl border border-outline-variant/20 reveal d2">
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div class="lg:col-span-1">
-              <span class="material-symbols-outlined text-secondary text-4xl mb-6 icon-bounce block">terminal</span>
-              <h3 class="font-headline text-3xl font-bold mb-4 text-on-surface">Création de sites</h3>
-              <p class="text-on-surface-variant mb-6">Sites et applications rapides qui donnent envie à vos clients de revenir.</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="tag px-3 py-1 bg-white border border-outline-variant/30 rounded-full text-xs font-body text-on-surface-variant cursor-pointer">MODERNE</span>
-                <span class="tag px-3 py-1 bg-white border border-outline-variant/30 rounded-full text-xs font-body text-on-surface-variant cursor-pointer">RAPIDE</span>
-                <span class="tag px-3 py-1 bg-white border border-outline-variant/30 rounded-full text-xs font-body text-on-surface-variant cursor-pointer">MOBILE</span>
+        <!-- Marketing + Ecommerce -->
+        <div class="svc-grid">
+          <!-- Marketing Digital -->
+          <div class="svc-card blue reveal d1">
+            <div class="svc-row">
+              <div class="svc-row-text">
+                <span class="material-symbols-outlined svc-icon b">campaign</span>
+                <h3>Marketing Digital</h3>
+                <p>Des campagnes publicitaires ciblées sur les réseaux sociaux pour attirer des clients qualifiés et augmenter vos ventes.</p>
+                <div class="tags">
+                  <span class="tag">Facebook Ads</span>
+                  <span class="tag">Instagram</span>
+                  <span class="tag">TikTok</span>
+                  <span class="tag">Google Ads</span>
+                </div>
+              </div>
+              <div class="svc-row-img">
+                <img src="./Images/app.jpg" alt="Marketing Digital" onerror="this.parentElement.innerHTML='<span class=\'material-symbols-outlined\' style=\'font-size:4rem;color:rgba(44,83,148,.15)\'>ads_click</span>'"/>
               </div>
             </div>
-            <div class="lg:col-span-2 grid grid-cols-2 gap-4">
-              <div class="mini-card aspect-video bg-white rounded-lg flex flex-col justify-center items-center text-center p-6 border border-outline-variant/20 shadow-sm">
-                <span class="material-symbols-outlined text-outline mb-2">devices</span>
-                <p class="font-bold text-on-surface text-sm">Sites Internet</p>
-                <p class="text-xs text-on-surface-variant">Élégants et efficaces</p>
-              </div>
-              <div class="mini-card aspect-video bg-white rounded-lg flex flex-col justify-center items-center text-center p-6 border border-outline-variant/20 shadow-sm">
-                <span class="material-symbols-outlined text-outline mb-2">smartphone</span>
-                <p class="font-bold text-on-surface text-sm">Apps Mobiles</p>
-                <p class="text-xs text-on-surface-variant">Flutter / Firebase</p>
-              </div>
-              
-
-                <div class="mini-card aspect-video bg-white rounded-lg flex flex-wrap gap-4 justify-center items-center text-center p-6 border border-outline-variant/20 shadow-sm">
-                  <img src="/Images/flutter.jpg" alt="Flutter App" class="w-12 m-5, border border-outline-variant/20 rounded-full, ">
-                  <img src="/Images/firebase.jpg" alt="Firebase" class="w-12 m-5, border border-outline-variant/20 rounded-full">
-                 
-              </div>
-                <div class="mini-card aspect-video bg-white rounded-lg flex flex-wrap gap-4 justify-center items-center text-center p-6 border border-outline-variant/20 shadow-sm">
-                  <img src="/Images/django.jpg" alt="Next.js" class="w-20 h-19 m-5, border border-outline-variant/20 rounded-full">
-                  <img src="/Images/html.jpg" alt="Next.js" class="w-20 h-19 m-5, ">
-              </div>
-
-            
+          </div>
+          <!-- E-commerce -->
+          <div class="svc-card orange reveal d2" style="display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <span class="material-symbols-outlined svc-icon o">storefront</span>
+              <h3>E-commerce</h3>
+              <p>Boutiques en ligne performantes avec gestion des paiements et du stock.</p>
+            </div>
+            <div class="mini-items-v">
+              <div class="mini-item-v"><div class="label">Optimisé</div><div class="val">Conversion maximale</div></div>
+              <div class="mini-item-v"><div class="label">Mobile-first</div><div class="val">Expérience fluide</div></div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ── SERVICES SECONDAIRES ── -->
-    <section class="px-6 md:px-10 py-20 bg-surface-container-lowest">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div class="max-w-2xl rev-l">
-            <span class="text-primary font-body text-sm uppercase tracking-widest mb-4 block">Le petit plus</span>
-            <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight text-on-surface">Services pour vous simplifier la vie</h2>
+        <!-- Data + Dev -->
+        <div class="svc-grid2">
+          <!-- Data -->
+          <div class="svc-card amber reveal d3">
+            <span class="material-symbols-outlined svc-icon a">analytics</span>
+            <h3>Analyse de données</h3>
+            <p>On traduit vos chiffres en conseils simples pour prendre les bonnes décisions.</p>
+            <div class="mini-items-v">
+              <div class="mini-item-v" style="border-left-color:var(--amber)"><div class="label" style="color:var(--amber)">Comprendre</div><div class="val">Ce qui plaît à vos clients</div></div>
+              <div class="mini-item-v" style="border-left-color:var(--amber)"><div class="label" style="color:var(--amber)">Agir</div><div class="val">Rapports faciles à lire</div></div>
+            </div>
           </div>
-          <p class="text-on-surface-variant text-sm md:text-right max-w-xs rev-r">On s'occupe de tout le reste pour que vous vous concentriez sur votre métier.</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="miniCards">
-          <div class="mini-card bg-white p-8 rounded-xl border border-outline-variant/30 group reveal d1">
-            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors mb-4 block icon-bounce">draw</span>
-            <h4 class="font-bold mb-2 text-on-surface font-headline">Design Graphique</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">De beaux visuels pour vos réseaux et flyers.</p>
-          </div>
-          <div class="mini-card bg-white p-8 rounded-xl border border-outline-variant/30 group reveal d2">
-            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors mb-4 block icon-bounce">auto_awesome</span>
-            <h4 class="font-bold mb-2 text-on-surface font-headline">Logo & Style</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">Une identité qui vous ressemble.</p>
-          </div>
-          <div class="mini-card bg-white p-8 rounded-xl border border-outline-variant/30 group reveal d3">
-            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors mb-4 block icon-bounce">movie_edit</span>
-            <h4 class="font-bold mb-2 text-on-surface font-headline">Montage Vidéo</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">Des vidéos percutantes pour vos réseaux.</p>
-          </div>
-          <div class="mini-card bg-white p-8 rounded-xl border border-outline-variant/30 group reveal d4">
-            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors mb-4 block icon-bounce">photo_camera</span>
-            <h4 class="font-bold mb-2 text-on-surface font-headline">Photos & Drone</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">Mettez en valeur vos produits et espaces.</p>
-          </div>
-          <div class="mini-card bg-white p-8 rounded-xl border border-outline-variant/30 group reveal d4">
-            <span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors mb-4 block icon-bounce">inventory</span>
-            <h4 class="font-bold mb-2 text-on-surface font-headline">Sourcing Chine</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">Sourcez vos stocks sereinement.</p>
+          <!-- Dev -->
+          <div class="svc-card orange reveal d2">
+            <div class="dev-grid">
+              <div>
+                <span class="material-symbols-outlined svc-icon o">terminal</span>
+                <h3>Création de sites & apps</h3>
+                <p>Sites et applications rapides qui donnent envie à vos clients de revenir.</p>
+                <div class="tags" style="margin-top:1rem;">
+                  <span class="tag">MODERNE</span>
+                  <span class="tag">RAPIDE</span>
+                  <span class="tag">MOBILE</span>
+                </div>
+              </div>
+              <div class="mini-cards-grid">
+                <div class="mini-card">
+                  <span class="material-symbols-outlined ico">devices</span>
+                  <p>Sites Internet</p>
+                  <span>Élégants et efficaces</span>
+                </div>
+                <div class="mini-card">
+                  <span class="material-symbols-outlined ico">smartphone</span>
+                  <p>Apps Mobiles</p>
+                  <span>Flutter / Firebase</span>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-imgs">
+                    <img src="./Images/flutter.jpg" alt="Flutter" onerror="this.style.display='none'"/>
+                    <img src="./Images/firebase.jpg" alt="Firebase" onerror="this.style.display='none'"/>
+                  </div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-imgs">
+                    <img src="./Images/django.jpg" alt="Django" onerror="this.style.display='none'"/>
+                    <img src="./Images/html.jpg" alt="HTML" onerror="this.style.display='none'"/>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── CTA ── -->
-    <section class="px-6 md:px-10 py-20">
-      <div class="max-w-7xl mx-auto bg-primary text-on-primary rounded-2xl p-12 md:p-20 relative overflow-hidden text-center shadow-2xl shadow-primary/30 reveal">
-        <div class="absolute inset-0 cta-pattern"></div>
-        <div class="relative z-10">
-          <h2 class="font-headline text-3xl md:text-6xl font-black mb-8">Et si on commençait aujourd'hui ?</h2>
-          <p class="text-primary-container/90 text-lg mb-12 max-w-2xl mx-auto italic font-medium">Gagnez du temps et développez votre activité avec un partenaire de confiance.</p>
-          <a href="contact.html" class="btn-r inline-flex items-center gap-3 bg-white text-primary px-12 py-5 rounded-md font-extrabold text-xl hover:scale-105 transition-all shadow-xl">
-            Discuter avec nous (c'est gratuit) <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">waving_hand</span>
-          </a>
+    <!-- SERVICES SECONDAIRES -->
+    <section class="sec2">
+      <div class="sec2-in">
+        <div class="sec2-hd">
+          <div class="rv-l">
+            <span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.2em;color:var(--p);display:block;margin-bottom:.6rem;font-family:var(--fb);">Le petit plus</span>
+            <h2>Services pour vous simplifier la vie</h2>
+          </div>
+          <p class="rv-r">Je m'occupe de tout le reste pour que vous vous concentriez sur votre métier.</p>
         </div>
+        <div class="mini-grid">
+          <div class="mini-g-card reveal d1">
+            <span class="material-symbols-outlined ico2">draw</span>
+            <h4>Design Graphique</h4>
+            <p>De beaux visuels pour vos réseaux et flyers.</p>
+          </div>
+          <div class="mini-g-card reveal d2">
+            <span class="material-symbols-outlined ico2">auto_awesome</span>
+            <h4>Logo & Style</h4>
+            <p>Une identité qui vous ressemble.</p>
+          </div>
+          <div class="mini-g-card reveal d3">
+            <span class="material-symbols-outlined ico2">movie_edit</span>
+            <h4>Montage Vidéo</h4>
+            <p>Des vidéos percutantes pour vos réseaux.</p>
+          </div>
+          <div class="mini-g-card reveal d4">
+            <span class="material-symbols-outlined ico2">photo_camera</span>
+            <h4>Photos & Drone</h4>
+            <p>Mettez en valeur vos produits et espaces.</p>
+          </div>
+          <div class="mini-g-card reveal d4">
+            <span class="material-symbols-outlined ico2" style="transition-color:var(--s);">inventory</span>
+            <h4>Sourcing Chine</h4>
+            <p>Sourcez vos stocks sereinement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-sec">
+      <div class="cta-box reveal">
+        <h2>Et si on commençait aujourd'hui ?</h2>
+        <p>Gagnez du temps et développez votre activité avec un partenaire de confiance.</p>
+        <a href="contact.html" class="btn btn-w">
+          Discuter avec moi (c'est gratuit)
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">waving_hand</span>
+        </a>
       </div>
     </section>
   </main>
 
-  <footer class="bg-surface-container-high w-full py-12 px-6 md:px-10 border-t border-outline-variant/20">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-      <div class="text-lg font-bold text-on-surface font-headline">Lucare · LD</div>
-      <div class="text-center font-body text-sm uppercase tracking-widest text-on-surface-variant">© 2025 Lucare Sieyandji.</div>
-      <div class="flex justify-center md:justify-end gap-6">
-        <a class="font-body text-sm uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">WhatsApp</a>
-        <a class="font-body text-sm uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">LinkedIn</a>
-        <a class="font-body text-sm uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">Instagram</a>
+  <!-- Footer -->
+  <footer>
+    <div class="ft-in">
+      <span class="ft-logo">Lucare · LD</span>
+      <span class="ft-copy">© 2025 Lucare Sieyandji · Douala 🇨🇲</span>
+      <div class="ft-links">
+        <a href="https://wa.me/237670574973" target="_blank">WhatsApp</a>
+        <a href="https://linkedin.com/in/lucare-djiako" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/digital_ld_store_agency" target="_blank">Instagram</a>
       </div>
     </div>
   </footer>
@@ -345,34 +464,70 @@
   ═══════════════════════════════════════════════════════════ -->
   <script>
     /* 1. Loader */
-    window.addEventListener('load', () => { setTimeout(() => { const l = document.getElementById('loader'); l.classList.add('out'); setTimeout(() => l.remove(), 600); }, 600); });
+    const loader = document.getElementById('loader');
+    if (loader) {
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.pointerEvents = 'none';
+        setTimeout(() => loader.remove(), 500);
+      }, 900);
+    }
 
     /* 2. Curseur */
-    const cDot = document.getElementById('cDot'), cRing = document.getElementById('cRing');
+    const cD = document.getElementById('cDot'), cR = document.getElementById('cRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cDot.style.left = mx + 'px'; cDot.style.top = my + 'px'; });
-    (function ar() { rx += (mx - rx) * .12; ry += (my - ry) * .12; cRing.style.left = rx + 'px'; cRing.style.top = ry + 'px'; requestAnimationFrame(ar); })();
-    document.querySelectorAll('a,button,.svc-card,.mini-card').forEach(el => { el.addEventListener('mouseenter', () => cRing.classList.add('h')); el.addEventListener('mouseleave', () => cRing.classList.remove('h')); });
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cD.style.left = mx + 'px'; cD.style.top = my + 'px'; });
+    (function ar() { rx += (mx - rx) * .12; ry += (my - ry) * .12; cR.style.left = rx + 'px'; cR.style.top = ry + 'px'; requestAnimationFrame(ar); })();
+    document.querySelectorAll('a, button, .svc-card, .mini-g-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cR.classList.add('h'));
+      el.addEventListener('mouseleave', () => cR.classList.remove('h'));
+    });
 
     /* 3. Scroll progress */
-    window.addEventListener('scroll', () => { document.getElementById('sp').style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; });
+    window.addEventListener('scroll', () => {
+      document.getElementById('sp').style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+    });
 
     /* 4. Hamburger */
-    document.getElementById('hbg').addEventListener('click', () => { const m = document.getElementById('mobMenu'), i = document.getElementById('hbgIcon'); m.classList.toggle('open'); i.textContent = m.classList.contains('open') ? 'close' : 'menu'; });
+    const hbg = document.getElementById('hbg');
+    const mob = document.getElementById('mobMenu');
+    const hbgI = document.getElementById('hbgI');
+    hbg.addEventListener('click', () => {
+      mob.classList.toggle('open');
+      hbgI.textContent = mob.classList.contains('open') ? 'close' : 'menu';
+    });
+    mob.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { mob.classList.remove('open'); hbgI.textContent = 'menu'; }));
 
     /* 5. Scroll reveal */
-    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: .12 });
-    document.querySelectorAll('.reveal,.rev-l,.rev-r').forEach(el => obs.observe(el));
+    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: .1 });
+    document.querySelectorAll('.reveal, .rv-l, .rv-r').forEach(el => obs.observe(el));
 
     /* 6. Compteurs */
-    const cObs = new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting) return; const el = e.target, t = +el.dataset.target; let c = 0; const s = t / 60, ti = setInterval(() => { c = Math.min(c + s, t); el.textContent = Math.floor(c); if (c >= t) clearInterval(ti); }, 16); cObs.unobserve(el); }); }, { threshold: .5 });
+    const cObs = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, t = +el.dataset.target; let c = 0;
+        const ti = setInterval(() => { c = Math.min(c + t / 60, t); el.textContent = Math.floor(c); if (c >= t) clearInterval(ti); }, 16);
+        cObs.unobserve(el);
+      });
+    }, { threshold: .5 });
     document.querySelectorAll('.cnt').forEach(c => cObs.observe(c));
 
     /* 7. Ripple */
-    document.querySelectorAll('.btn-r').forEach(btn => { btn.addEventListener('click', e => { const r = document.createElement('span'); r.className = 'rip'; const rect = btn.getBoundingClientRect(), size = Math.max(rect.width, rect.height); r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`; btn.appendChild(r); setTimeout(() => r.remove(), 700); }); });
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const r = document.createElement('span'); r.className = 'rip';
+        const rect = btn.getBoundingClientRect(), size = Math.max(rect.width, rect.height);
+        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+        btn.appendChild(r); setTimeout(() => r.remove(), 700);
+      });
+    });
 
     /* 8. Parallax hero */
-    window.addEventListener('scroll', () => { const el = document.getElementById('heroParallax'); if (el) el.style.transform = `translateY(${window.scrollY * .07}px)`; });
+    window.addEventListener('scroll', () => {
+      const el = document.getElementById('heroParallax');
+      if (el) el.style.transform = `translateY(${window.scrollY * .07}px)`;
+    });
   </script>
 </body>
 </html>
